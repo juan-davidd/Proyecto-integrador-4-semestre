@@ -648,249 +648,169 @@ body {
 .section-link:hover { gap: .6rem; text-decoration: underline; }
 
 /* ==========================================
-   PROMOCIONES
+   CATÁLOGO COMERCIAL UNIFICADO
    ========================================== */
-.promos-section { padding-block: 3.5rem; }
-.promos-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-.promo-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-  padding: 1.25rem;
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition);
-  box-shadow: var(--shadow);
-  display: block;
-  color: var(--col-white);
-}
-.promo-card:hover { transform: scale(1.02); box-shadow: var(--shadow-xl); }
-.promo-verde  { background: var(--col-primary); }
-.promo-cyan   { background: var(--col-cyan); }
-.promo-orange { background: linear-gradient(135deg, var(--col-orange) 0%, var(--col-pink) 100%); }
-.promo-dark   { background: var(--col-gray-800); }
+.catalogo-section { padding-block: 3.5rem; background: var(--col-gray-50); }
 
-.promo-circle {
-  position: absolute;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.15);
-  pointer-events: none;
-}
-.promo-circle-tr { top: -1.5rem; right: -1.5rem; }
-.promo-circle-bl { bottom: -2rem; left: -2rem; width: 128px; height: 128px; }
-
-.promo-body { position: relative; z-index: 1; }
-.promo-tag {
-  display: inline-block;
-  font-size: .7rem;
-  background: rgba(255,255,255,.25);
-  padding: .1rem .55rem;
-  border-radius: 999px;
-  margin-bottom: .6rem;
-}
-.promo-card h3 { font-size: 1rem; font-weight: 700; line-height: 1.2; margin-bottom: .2rem; }
-.promo-card p  { font-size: .75rem; opacity: .8; margin-bottom: 1rem; }
-.promo-price   { font-size: .8rem; opacity: .85; margin-bottom: .75rem; }
-.promo-price strong { font-size: 1rem; font-weight: 700; opacity: 1; }
-.promo-cta {
+/* Tabs de filtro */
+.catalogo-tabs {
   display: flex;
+  gap: .5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+.catalogo-tab {
+  display: inline-flex;
   align-items: center;
-  gap: .3rem;
+  gap: .35rem;
+  padding: .45rem 1rem;
   font-size: .8rem;
   font-weight: 600;
-  background: rgba(255,255,255,.2);
-  padding: .4rem .8rem;
-  border-radius: var(--radius-sm);
-  width: fit-content;
-  transition: background var(--transition);
+  border-radius: 999px;
+  border: 1.5px solid var(--col-gray-200);
+  background: var(--col-white);
+  color: var(--col-gray-600);
+  cursor: pointer;
+  transition: all .2s ease;
 }
-.promo-card:hover .promo-cta { background: rgba(255,255,255,.3); }
+.catalogo-tab:hover { border-color: var(--col-primary); color: var(--col-primary); }
+.catalogo-tab.active {
+  background: var(--col-primary);
+  border-color: var(--col-primary);
+  color: var(--col-white);
+}
+.catalogo-tab.active svg { stroke: var(--col-white); }
 
-/* ==========================================
-   DESTINOS
-   ========================================== */
-.destinations-section {
-  background: var(--col-gray-50);
-  padding-block: 3.5rem;
-}
-.destinations-grid {
+/* Grid adaptable */
+.catalogo-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.25rem;
 }
-.dest-card {
+
+/* ── Card base ── */
+.cat-card {
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow);
   background: var(--col-white);
   cursor: pointer;
   transition: transform .25s ease, box-shadow .25s ease;
-  display: block;
-  color: inherit;
-}
-.dest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
-.dest-img-wrap {
-  position: relative;
-  height: 13rem;
-  overflow: hidden;
-}
-.dest-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .5s ease;
-}
-.dest-card:hover .dest-img-wrap img { transform: scale(1.06); }
-.dest-badges {
-  position: absolute;
-  top: .75rem;
-  left: .75rem;
-  display: flex;
-  gap: .4rem;
-  flex-wrap: wrap;
-}
-.badge {
-  font-size: .65rem;
-  font-weight: 700;
-  padding: .15rem .5rem;
-  border-radius: 999px;
-}
-.badge-intl { background: rgba(0,153,230,.9);   color: var(--col-white); }
-.badge-nacl { background: rgba(11,61,145,.9);    color: var(--col-white); }
-.badge-hot  { background: rgba(255,255,255,.9); color: var(--col-gray-800); }
-
-.dest-info {
-  padding: .9rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.dest-city    { font-size: 1rem; font-weight: 700; color: var(--col-gray-900); }
-.dest-country {
-  display: flex;
-  align-items: center;
-  gap: .25rem;
-  font-size: .75rem;
-  color: var(--col-gray-500);
-  margin-top: .1rem;
-}
-.dest-price {
-  font-size: .78rem;
-  font-weight: 700;
-  color: var(--col-primary);
-  text-align: right;
-  white-space: nowrap;
-}
-
-/* ==========================================
-   PAQUETES
-   ========================================== */
-.packages-section {
-  background: var(--col-white);
-  padding-block: 3.5rem;
-}
-.packages-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-.pkg-card {
-  background: var(--col-white);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--col-gray-100);
-  overflow: hidden;
-  cursor: pointer;
-  transition: box-shadow .25s ease;
   display: flex;
   flex-direction: column;
   color: inherit;
+  text-decoration: none;
 }
-.pkg-card:hover { box-shadow: var(--shadow-xl); }
-@media (min-width: 540px) {
-  .pkg-card { flex-direction: row; }
-}
-.pkg-img-wrap {
+.cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+/* ── Card imagen ── */
+.cat-card-img {
   position: relative;
-  flex-shrink: 0;
-  height: 200px;
+  height: 12rem;
   overflow: hidden;
 }
-@media (min-width: 540px) {
-  .pkg-img-wrap { width: 208px; height: auto; }
-}
-.pkg-img-wrap img {
+.cat-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform .5s ease;
 }
-.pkg-card:hover .pkg-img-wrap img { transform: scale(1.05); }
-.pkg-img-overlay {
+.cat-card:hover .cat-card-img img { transform: scale(1.06); }
+.cat-card-img .cat-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.4), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,.35), transparent 60%);
 }
-.pkg-discount {
+
+/* Badges sobre la imagen */
+.cat-badges {
   position: absolute;
-  top: .75rem;
-  left: .75rem;
-  background: var(--col-primary);
-  color: var(--col-white);
-  font-size: .7rem;
+  top: .65rem;
+  left: .65rem;
+  display: flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+}
+.cat-badge {
+  font-size: .6rem;
   font-weight: 700;
-  padding: .2rem .5rem;
-  border-radius: var(--radius-sm);
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
 }
-.pkg-stars {
+.cat-badge-tipo {
+  background: rgba(255,255,255,.92);
+  color: var(--col-primary);
+}
+.cat-badge-intl  { background: rgba(0,153,230,.9);  color: var(--col-white); }
+.cat-badge-nacl  { background: rgba(11,61,145,.9);   color: var(--col-white); }
+.cat-badge-desc  { background: var(--col-accent);    color: var(--col-white); }
+
+/* Estrellas y descuento sobre imagen */
+.cat-stars {
   position: absolute;
-  bottom: .75rem;
-  left: .75rem;
+  bottom: .6rem;
+  left: .65rem;
   font-size: .75rem;
   color: #facc15;
   letter-spacing: .1rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
 }
-.pkg-body {
-  padding: 1.1rem 1.25rem;
+
+/* ── Card cuerpo ── */
+.cat-card-body {
+  padding: 1rem 1.1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-.pkg-name { font-size: 1.05rem; font-weight: 700; color: var(--col-gray-900); margin-bottom: .25rem; }
-.pkg-desc { font-size: .8rem; color: var(--col-gray-500); margin-bottom: .75rem; }
-.pkg-includes {
+.cat-card-body h3 { font-size: .95rem; font-weight: 700; color: var(--col-gray-900); margin-bottom: .15rem; }
+.cat-card-body .cat-sub { font-size: .78rem; color: var(--col-gray-500); margin-bottom: .5rem; }
+.cat-card-body .cat-desc { font-size: .75rem; color: var(--col-gray-500); margin-bottom: .65rem; line-height: 1.45; }
+
+/* Incluye (paquetes) */
+.cat-includes {
   display: flex;
   flex-direction: column;
-  gap: .3rem;
-  margin-bottom: .85rem;
+  gap: .25rem;
+  margin-bottom: .65rem;
 }
-.pkg-includes li {
+.cat-includes li {
   display: flex;
   align-items: center;
-  gap: .4rem;
-  font-size: .78rem;
+  gap: .35rem;
+  font-size: .72rem;
   color: var(--col-gray-700);
 }
-.pkg-includes li svg { color: var(--col-primary); flex-shrink: 0; }
-.pkg-pricing { display: flex; align-items: baseline; gap: .6rem; margin-bottom: .85rem; margin-top: auto; }
-.pkg-price    { font-size: 1.1rem; font-weight: 700; color: var(--col-primary); }
-.pkg-original { font-size: .8rem; color: var(--col-gray-400); text-decoration: line-through; }
-.pkg-btn {
-  font-size: .8rem;
-  padding: .5rem 1rem;
-  border-radius: var(--radius-sm);
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background var(--transition);
+.cat-includes li svg { color: var(--col-primary); flex-shrink: 0; }
+
+/* Pricing row */
+.cat-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  margin-top: auto;
 }
+.cat-price { font-size: .95rem; font-weight: 700; color: var(--col-primary); }
+.cat-original { font-size: .75rem; color: var(--col-gray-400); text-decoration: line-through; }
+.cat-desde { font-size: .7rem; color: var(--col-gray-500); }
+
+/* ── Variantes de color para ofertas (overlay colorido) ── */
+.cat-card[data-color="verde"] .cat-card-img::after  { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(11,61,145,.65) 0%, rgba(0,153,230,.4) 100%); }
+.cat-card[data-color="cyan"] .cat-card-img::after   { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(0,153,230,.65) 0%, rgba(11,61,145,.4) 100%); }
+.cat-card[data-color="dark"] .cat-card-img::after    { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(30,30,40,.7) 0%, rgba(60,60,80,.5) 100%); }
+
+/* Fade-in animation */
+@keyframes catFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cat-card { animation: catFadeIn .35s ease both; }
+.cat-card:nth-child(2) { animation-delay: .06s; }
+.cat-card:nth-child(3) { animation-delay: .12s; }
+.cat-card:nth-child(4) { animation-delay: .18s; }
+.cat-card:nth-child(5) { animation-delay: .24s; }
+.cat-card:nth-child(6) { animation-delay: .3s; }
 
 /* CTA paquetes */
 .packages-cta {

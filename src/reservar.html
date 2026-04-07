@@ -317,20 +317,6 @@
     }
     .booking-nav .btn { min-width: 120px; }
 
-    /* Infants notice */
-    .infants-notice {
-      background: #fdf2f8;
-      border: 1px solid #fbcfe8;
-      border-radius: var(--radius);
-      padding: .75rem 1rem;
-      display: flex;
-      align-items: flex-start;
-      gap: .6rem;
-      margin-top: .75rem;
-    }
-    .infants-notice p { font-size: .78rem; color: #be185d; }
-    .infants-notice p strong { display: block; margin-bottom: .2rem; }
-
     /* Steps hidden */
     .step-pane { display: none; }
     .step-pane.active { display: block; }
@@ -356,10 +342,10 @@
       </div>
     </a>
     <nav class="header-nav">
-      <a href="index.html" class="nav-link">Inicio</a>
-      <a href="resultados.html" class="nav-link">Vuelos</a>
-      <a href="estado.html" class="nav-link">Estado del vuelo</a>
+      <a href="reservar.html" class="nav-link">Reservar</a>
+      <a href="gestionar.html" class="nav-link">Gestionar reserva</a>
       <a href="checkin.html" class="nav-link">Check-in</a>
+      <a href="estado.html" class="nav-link">Estado de vuelos</a>
     </nav>
     <div class="header-actions">
       <a href="login.html" class="btn btn-outline-white btn-sm">Iniciar sesión</a>
@@ -370,10 +356,10 @@
     </button>
   </div>
   <nav class="mobile-nav" id="mobileNav" hidden>
-    <a href="index.html" class="mobile-nav-link">Inicio</a>
-    <a href="resultados.html" class="mobile-nav-link">Vuelos</a>
-    <a href="estado.html" class="mobile-nav-link">Estado del vuelo</a>
+    <a href="reservar.html" class="mobile-nav-link">Reservar</a>
+    <a href="gestionar.html" class="mobile-nav-link">Gestionar reserva</a>
     <a href="checkin.html" class="mobile-nav-link">Check-in</a>
+    <a href="estado.html" class="mobile-nav-link">Estado de vuelos</a>
     <div class="mobile-nav-btns">
       <a href="login.html" class="btn btn-outline-white btn-sm" style="flex:1; justify-content:center;">Iniciar sesión</a>
       <a href="login.html" class="btn btn-white btn-sm" style="flex:1; justify-content:center;">Registrarse</a>
@@ -438,79 +424,23 @@
             </div>
 
             <div id="passengerRows">
-              <!-- Adultos -->
+              <!-- Pasajeros -->
               <div class="pass-row-big">
                 <div class="pass-row-info">
                   <div class="pass-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B3D91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B3D91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   </div>
                   <div>
-                    <div class="pass-type-name">Adultos</div>
-                    <div class="pass-type-age">15+ años</div>
+                    <div class="pass-type-name">Pasajeros</div>
+                    <div class="pass-type-age">Número de viajeros</div>
                   </div>
                 </div>
                 <div class="counter">
-                  <button class="counter-btn" id="dec-adults" onclick="changePass('adults',-1)" disabled>−</button>
-                  <span class="counter-val" id="val-adults">1</span>
-                  <button class="counter-btn" id="inc-adults" onclick="changePass('adults',1)">+</button>
+                  <button class="counter-btn" id="dec-passengers" onclick="changePass('passengers',-1)" disabled>−</button>
+                  <span class="counter-val" id="val-passengers">1</span>
+                  <button class="counter-btn" id="inc-passengers" onclick="changePass('passengers',1)">+</button>
                 </div>
               </div>
-              <!-- Jóvenes -->
-              <div class="pass-row-big">
-                <div class="pass-row-info">
-                  <div class="pass-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                  <div>
-                    <div class="pass-type-name">Jóvenes</div>
-                    <div class="pass-type-age">11 a 14 años</div>
-                  </div>
-                </div>
-                <div class="counter">
-                  <button class="counter-btn" id="dec-teens" onclick="changePass('teens',-1)" disabled>−</button>
-                  <span class="counter-val" id="val-teens">0</span>
-                  <button class="counter-btn" id="inc-teens" onclick="changePass('teens',1)">+</button>
-                </div>
-              </div>
-              <!-- Niños -->
-              <div class="pass-row-big">
-                <div class="pass-row-info">
-                  <div class="pass-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                  <div>
-                    <div class="pass-type-name">Niños</div>
-                    <div class="pass-type-age">2 a 10 años</div>
-                  </div>
-                </div>
-                <div class="counter">
-                  <button class="counter-btn" id="dec-children" onclick="changePass('children',-1)" disabled>−</button>
-                  <span class="counter-val" id="val-children">0</span>
-                  <button class="counter-btn" id="inc-children" onclick="changePass('children',1)">+</button>
-                </div>
-              </div>
-              <!-- Bebés -->
-              <div class="pass-row-big">
-                <div class="pass-row-info">
-                  <div class="pass-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6"/><path d="M11 16h2"/><path d="M12 2a5 5 0 0 1 5 5c0 2.5-1.5 4.5-3.5 5.5A5 5 0 0 1 7 7a5 5 0 0 1 5-5z"/></svg>
-                  </div>
-                  <div>
-                    <div class="pass-type-name">Bebés</div>
-                    <div class="pass-type-age">Menores de 2 años · Sin asiento</div>
-                  </div>
-                </div>
-                <div class="counter">
-                  <button class="counter-btn" id="dec-infants" onclick="changePass('infants',-1)" disabled>−</button>
-                  <span class="counter-val" id="val-infants">0</span>
-                  <button class="counter-btn" id="inc-infants" onclick="changePass('infants',1)">+</button>
-                </div>
-              </div>
-            </div>
-
-            <div id="infantsNotice" class="infants-notice" hidden>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <p><strong>Bebés en brazos</strong>Los bebés viajan en brazos del adulto sin asiento asignado. No se requiere formulario adicional.</p>
             </div>
           </div>
 
@@ -842,95 +772,129 @@
   </div>
 </footer>
 
+<script src="js/mockData.js"></script>
+<script src="js/global.js"></script>
 <script>
 (function () {
   'use strict';
 
   // ── State ──
-  const state = {
+  var state = {
     step: 0,
-    passengers: { adults: 1, teens: 0, children: 0, infants: 0 },
+    passengers: { count: 1 },
     selectedSeats: [],
-    form: {}
+    form: {},
+    flightData: null
   };
 
-  const SEAT_ROWS = 10;
-  const COLUMNS = ['A','B','C','D','E','F'];
-  const OCCUPIED = ['1A','1C','2B','2F','3D','4A','4E','5C','6B','6F','7A','8D'];
-  const BUSINESS_ROWS = [1, 2];
+  var SEAT_ROWS = 10;
+  var COLUMNS = ['A','B','C','D','E','F'];
+  var OCCUPIED = ['1A','1C','2B','2F','3D','4A','4E','5C','6B','6F','7A','8D'];
+  var BUSINESS_ROWS = [1, 2];
 
-  // Read URL params
+  // Read URL params – use TSData if vuelo code is provided
   function readParams() {
-    const p = new URLSearchParams(location.search);
-    const origin = p.get('origin') || 'BOG';
-    const dest   = p.get('dest')   || 'MAD';
-    const dep    = p.get('dep')    || '15 Mar 2026';
-    const cabin  = p.get('cabin')  || 'Económica';
-    const adults = parseInt(p.get('adults') || '1', 10);
+    var p = new URLSearchParams(location.search);
+    var vueloCode = p.get('vuelo');
+    var flight = vueloCode ? TSData.findFlight(vueloCode) : null;
+
+    var origin, dest, dep, cabin, adults, price, dur, stops, aircraft;
+    if (flight) {
+      state.flightData = flight;
+      origin   = flight.origin;
+      dest     = flight.dest;
+      dep      = '15 Mar 2026';
+      cabin    = flight.cabin;
+      adults   = parseInt(p.get('adults') || '1', 10);
+      price    = flight.price;
+      dur      = flight.dur;
+      stops    = flight.stops;
+      aircraft = flight.aircraft;
+    } else {
+      origin  = p.get('origin') || 'BOG';
+      dest    = p.get('dest')   || 'MAD';
+      dep     = p.get('dep')    || '15 Mar 2026';
+      cabin   = p.get('cabin')  || 'Económica';
+      adults  = parseInt(p.get('adults') || '1', 10);
+      price   = 850000;
+      dur     = '11h 45min';
+      stops   = 0;
+      aircraft = 'A330-200';
+    }
+
+    state.basePrice = price;
+    state.origin = origin;
+    state.dest = dest;
+    state.dep = dep;
+    state.cabin = cabin;
+    state.dur = dur;
+    state.stops = stops;
+    state.aircraft = aircraft;
 
     document.getElementById('sb-origin').textContent = origin;
     document.getElementById('sb-dest').textContent   = dest;
     document.getElementById('sb-date').textContent   = dep;
     document.getElementById('sb-cabin').textContent  = 'Clase ' + cabin;
-    document.getElementById('flightSummaryBar').textContent = origin + ' → ' + dest + ' · ' + dep + ' · Clase ' + cabin;
+    document.getElementById('sb-duration').textContent = dur;
+    document.getElementById('sb-stops').textContent  = stops === 0 ? 'Directo' : stops + ' escala';
+    document.getElementById('flightSummaryBar').textContent = TSData.airportLabel(origin) + ' → ' + TSData.airportLabel(dest) + ' · ' + dep + ' · Clase ' + cabin;
+    document.getElementById('heroBack').href = 'resultados.html?origen=' + origin + '&destino=' + dest;
 
-    // Set passengers from params
-    state.passengers.adults = adults || 1;
-    document.getElementById('val-adults').textContent = state.passengers.adults;
-    updateDecBtn('adults', 1);
+    state.passengers.count = adults || 1;
+    document.getElementById('val-passengers').textContent = state.passengers.count;
+    updateDecBtn('passengers', 1);
     updateSidebar();
   }
 
   // ── Passenger counters ──
   window.changePass = function (type, delta) {
-    const min = type === 'adults' ? 1 : 0;
-    state.passengers[type] = Math.max(min, state.passengers[type] + delta);
-    document.getElementById('val-' + type).textContent = state.passengers[type];
-    updateDecBtn(type, min);
-    document.getElementById('infantsNotice').hidden = state.passengers.infants === 0;
+    state.passengers.count = Math.max(1, state.passengers.count + delta);
+    document.getElementById('val-passengers').textContent = state.passengers.count;
+    updateDecBtn('passengers', 1);
     updateSidebar();
   };
 
   function updateDecBtn(type, min) {
-    const m = (min !== undefined) ? min : (type === 'adults' ? 1 : 0);
-    document.getElementById('dec-' + type).disabled = state.passengers[type] <= m;
+    var m = (min !== undefined) ? min : 1;
+    document.getElementById('dec-passengers').disabled = state.passengers.count <= m;
   }
 
   function totalWithSeats() {
-    return state.passengers.adults + state.passengers.teens + state.passengers.children;
+    return state.passengers.count;
   }
 
   function updateSidebar() {
-    const base = 850000;
-    const taxes = 152000;
-    const n = state.passengers.adults + state.passengers.teens + state.passengers.children + state.passengers.infants;
-    const fmt = v => 'COP ' + new Intl.NumberFormat('es-CO').format(v);
+    var base = state.basePrice || 850000;
+    var taxRate = 0.179;
+    var taxes = Math.round(base * taxRate);
+    var n = state.passengers.count;
+    var fmt = function(v){ return TSData.formatCOP(v); };
     document.getElementById('sb-passLabel').textContent = n + ' pasajero' + (n !== 1 ? 's' : '');
-    document.getElementById('sb-basePrice').textContent = fmt(base * (state.passengers.adults + state.passengers.teens + state.passengers.children));
+    document.getElementById('sb-basePrice').textContent = fmt(base * n);
     document.getElementById('sb-taxes').textContent    = fmt(taxes * n);
-    document.getElementById('sb-total').textContent    = fmt((base * (state.passengers.adults + state.passengers.teens + state.passengers.children)) + (taxes * n));
+    state.totalPrice = (base * n) + (taxes * n);
+    state.taxes = taxes * n;
+    document.getElementById('sb-total').textContent    = fmt(state.totalPrice);
   }
 
   // ── Step navigation ──
   window.goStep = function (targetStep) {
     if (targetStep === 1) {
-      const err = validatePassengerForm();
+      var err = validatePassengerForm();
       if (err) { showError('formError', err); return; }
       hideError('formError');
     }
     if (targetStep === 3) {
-      const err = validatePayment();
-      if (err) { showError('payError', err); return; }
+      var err2 = validatePayment();
+      if (err2) { showError('payError', err2); return; }
       hideError('payError');
     }
 
-    // Update DOM
     document.getElementById('pane' + state.step).classList.remove('active');
     document.getElementById('pane' + targetStep).classList.add('active');
 
-    // Update step indicator
-    const items = document.querySelectorAll('.step-item');
-    items.forEach((item, i) => {
+    var items = document.querySelectorAll('.step-item');
+    items.forEach(function(item, i) {
       item.classList.remove('active', 'done');
       if (i < targetStep) {
         item.classList.add('done');
@@ -944,22 +908,17 @@
     });
 
     state.step = targetStep;
-
-    // Build seat map on step 1
     if (targetStep === 1) buildSeatMap();
-
-    // Generate confirmation code on step 3
     if (targetStep === 3) generateConfirmation();
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // ── Validation ──
   function validatePassengerForm() {
-    const fields = ['firstName','lastName','email','phone','docNumber'];
-    for (const id of fields) {
-      const el = document.getElementById(id);
-      const val = el.value.trim();
+    var fields = ['firstName','lastName','email','phone','docNumber'];
+    for (var i = 0; i < fields.length; i++) {
+      var el = document.getElementById(fields[i]);
+      var val = el.value.trim();
       if (!val) {
         el.classList.add('error');
         el.focus();
@@ -967,7 +926,7 @@
       }
       el.classList.remove('error');
     }
-    const email = document.getElementById('email').value.trim();
+    var email = document.getElementById('email').value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       document.getElementById('email').classList.add('error');
       return 'Ingresa un correo electrónico válido.';
@@ -976,9 +935,9 @@
   }
 
   function validatePayment() {
-    const fields = ['cardNumber','cardName','expiry','cvv'];
-    for (const id of fields) {
-      const el = document.getElementById(id);
+    var fields = ['cardNumber','cardName','expiry','cvv'];
+    for (var i = 0; i < fields.length; i++) {
+      var el = document.getElementById(fields[i]);
       if (!el.value.trim()) {
         el.classList.add('error');
         el.focus();
@@ -990,7 +949,7 @@
   }
 
   function showError(id, msg) {
-    const el = document.getElementById(id);
+    var el = document.getElementById(id);
     el.textContent = msg;
     el.hidden = false;
   }
@@ -1000,71 +959,71 @@
 
   // ── Seat map ──
   function buildSeatMap() {
-    const total = totalWithSeats();
+    var total = totalWithSeats();
     document.getElementById('seatsNeededLabel').textContent =
       'Selecciona ' + total + ' asiento' + (total !== 1 ? 's' : '') + ' para tu vuelo';
 
-    const map = document.getElementById('seatMap');
+    var map = document.getElementById('seatMap');
     map.innerHTML = '';
 
-    // Column headers
-    const headerRow = document.createElement('div');
+    var headerRow = document.createElement('div');
     headerRow.className = 'seat-header-row';
-    COLUMNS.forEach((col, i) => {
-      const lbl = document.createElement('div');
+    COLUMNS.forEach(function(col, i) {
+      var lbl = document.createElement('div');
       lbl.className = 'seat-col-lbl';
       lbl.textContent = col;
       headerRow.appendChild(lbl);
       if (i === 2) {
-        const aisle = document.createElement('div');
+        var aisle = document.createElement('div');
         aisle.className = 'seat-aisle';
         headerRow.appendChild(aisle);
       }
     });
     map.appendChild(headerRow);
 
-    // Rows
-    for (let r = 1; r <= SEAT_ROWS; r++) {
-      const row = document.createElement('div');
+    for (var r = 1; r <= SEAT_ROWS; r++) {
+      var row = document.createElement('div');
       row.className = 'seat-row';
 
-      const num = document.createElement('div');
+      var num = document.createElement('div');
       num.className = 'seat-row-num';
       num.textContent = r;
       row.appendChild(num);
 
-      COLUMNS.forEach((col, i) => {
-        const seatId = r + col;
-        const btn = document.createElement('button');
-        btn.className = 'seat-btn';
-        btn.type = 'button';
-        btn.dataset.seat = seatId;
+      (function(rowNum){
+        COLUMNS.forEach(function(col, i) {
+          var seatId = rowNum + col;
+          var btn = document.createElement('button');
+          btn.className = 'seat-btn';
+          btn.type = 'button';
+          btn.dataset.seat = seatId;
 
-        if (OCCUPIED.includes(seatId)) {
-          btn.className += ' seat-occupied';
-          btn.textContent = '✕';
-          btn.disabled = true;
-        } else if (state.selectedSeats.includes(seatId)) {
-          btn.className += ' seat-selected';
-          btn.textContent = seatId;
-        } else if (BUSINESS_ROWS.includes(r)) {
-          btn.className += ' seat-business';
-          btn.textContent = seatId;
-          btn.addEventListener('click', () => toggleSeat(seatId));
-        } else {
-          btn.className += ' seat-available';
-          btn.textContent = seatId;
-          btn.addEventListener('click', () => toggleSeat(seatId));
-        }
+          if (OCCUPIED.indexOf(seatId) !== -1) {
+            btn.className += ' seat-occupied';
+            btn.textContent = '✕';
+            btn.disabled = true;
+          } else if (state.selectedSeats.indexOf(seatId) !== -1) {
+            btn.className += ' seat-selected';
+            btn.textContent = seatId;
+          } else if (BUSINESS_ROWS.indexOf(rowNum) !== -1) {
+            btn.className += ' seat-business';
+            btn.textContent = seatId;
+            btn.addEventListener('click', function(){ toggleSeat(seatId); });
+          } else {
+            btn.className += ' seat-available';
+            btn.textContent = seatId;
+            btn.addEventListener('click', function(){ toggleSeat(seatId); });
+          }
 
-        row.appendChild(btn);
+          row.appendChild(btn);
 
-        if (i === 2) {
-          const aisle = document.createElement('div');
-          aisle.className = 'seat-aisle';
-          row.appendChild(aisle);
-        }
-      });
+          if (i === 2) {
+            var aisle = document.createElement('div');
+            aisle.className = 'seat-aisle';
+            row.appendChild(aisle);
+          }
+        });
+      })(r);
 
       map.appendChild(row);
     }
@@ -1072,8 +1031,8 @@
   }
 
   function toggleSeat(seatId) {
-    const total = totalWithSeats();
-    const idx = state.selectedSeats.indexOf(seatId);
+    var total = totalWithSeats();
+    var idx = state.selectedSeats.indexOf(seatId);
     if (idx >= 0) {
       state.selectedSeats.splice(idx, 1);
     } else {
@@ -1084,61 +1043,107 @@
   }
 
   function updateSeatStatus() {
-    const total = totalWithSeats();
-    const sel = state.selectedSeats.length;
-    const el = document.getElementById('seatSelStatus');
+    var total = totalWithSeats();
+    var sel = state.selectedSeats.length;
+    var el = document.getElementById('seatSelStatus');
     el.textContent = sel + ' de ' + total + ' asientos seleccionados: ' + (state.selectedSeats.join(', ') || '—');
   }
 
-  // ── Confirmation ──
+  // ── Confirmation – PERSISTE en sessionStorage ──
   function generateConfirmation() {
-    const code = 'TS-' + Math.random().toString(36).substring(2,8).toUpperCase();
+    var code = TSData.generateBookingCode();
     document.getElementById('bookingCode').textContent = code;
-    const fn = document.getElementById('firstName').value.trim();
-    const ln = document.getElementById('lastName').value.trim();
+    var fn = document.getElementById('firstName').value.trim();
+    var ln = document.getElementById('lastName').value.trim();
     document.getElementById('confirmName').textContent = fn + ' ' + ln;
-    const origin = document.getElementById('sb-origin').textContent;
-    const dest   = document.getElementById('sb-dest').textContent;
-    document.getElementById('confirmFlight').textContent = origin + ' → ' + dest;
+    document.getElementById('confirmFlight').textContent = state.origin + ' → ' + state.dest;
+
+    // Guardar reserva en sessionStorage vía TSData
+    var reserva = {
+      code: code,
+      flightCode: state.flightData ? state.flightData.code : '',
+      passenger: fn + ' ' + ln,
+      firstName: fn, lastName: ln,
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      docType: document.getElementById('docType').value,
+      docNumber: document.getElementById('docNumber').value.trim(),
+      origin: state.origin, dest: state.dest,
+      originCity: TSData.AIRPORT_MAP[state.origin] ? TSData.AIRPORT_MAP[state.origin].city : state.origin,
+      destCity: TSData.AIRPORT_MAP[state.dest] ? TSData.AIRPORT_MAP[state.dest].city : state.dest,
+      dep: document.getElementById('sb-dep') ? document.getElementById('sb-dep').textContent : '',
+      arr: document.getElementById('sb-arr') ? document.getElementById('sb-arr').textContent : '',
+      date: state.dep,
+      dateShort: state.dep.split(' ').slice(0,2).join(' ').toUpperCase(),
+      duration: state.dur,
+      stops: state.stops === 0 ? 'Directo' : state.stops + ' escala',
+      cabin: state.cabin,
+      seat: state.selectedSeats.join(', ') || 'Sin asignar',
+      gate: 'B' + (Math.floor(Math.random() * 20) + 1),
+      aircraft: state.aircraft,
+      estado: 'Confirmada',
+      checkedIn: false,
+      passengers: { count: state.passengers.count },
+      basePrice: state.basePrice || 850000,
+      taxes: state.taxes || 152000,
+      total: state.totalPrice || 1002000,
+      createdAt: new Date().toISOString()
+    };
+
+    TSData.addReserva(reserva);
+    showToast('¡Reserva ' + code + ' creada exitosamente!', 'success', 6000);
   }
 
   // ── Card number formatting ──
-  const cardInput = document.getElementById('cardNumber');
+  var cardInput = document.getElementById('cardNumber');
   if (cardInput) {
     cardInput.addEventListener('input', function () {
-      let val = this.value.replace(/\D/g, '').substring(0, 16);
+      var val = this.value.replace(/\D/g, '').substring(0, 16);
       this.value = val.replace(/(.{4})/g, '$1 ').trim();
     });
   }
 
-  const expiryInput = document.getElementById('expiry');
+  var expiryInput = document.getElementById('expiry');
   if (expiryInput) {
     expiryInput.addEventListener('input', function () {
-      let val = this.value.replace(/\D/g, '').substring(0, 4);
+      var val = this.value.replace(/\D/g, '').substring(0, 4);
       if (val.length >= 3) val = val.substring(0,2) + '/' + val.substring(2);
       this.value = val;
     });
   }
 
   // ── Hamburger ──
-  const ham = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
+  var ham = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobileNav');
   if (ham) {
-    ham.addEventListener('click', () => {
-      const open = ham.classList.toggle('open');
+    ham.addEventListener('click', function() {
+      var open = ham.classList.toggle('open');
       ham.setAttribute('aria-expanded', open);
       mobileNav.hidden = !open;
     });
   }
 
+  // ── Autofill si usuario logueado ──
+  try {
+    var user = JSON.parse(sessionStorage.getItem('ts_user'));
+    if (user) {
+      var parts = (user.name || '').split(' ');
+      if (parts.length >= 2 && !document.getElementById('firstName').value) {
+        document.getElementById('firstName').value = parts.slice(0, -1).join(' ');
+        document.getElementById('lastName').value = parts[parts.length - 1];
+      }
+      if (user.email && !document.getElementById('email').value) {
+        document.getElementById('email').value = user.email;
+      }
+    }
+  } catch(e){}
+
   // ── Init ──
   readParams();
-  updateDecBtn('teens', 0);
-  updateDecBtn('children', 0);
-  updateDecBtn('infants', 0);
 
 })();
 </script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>

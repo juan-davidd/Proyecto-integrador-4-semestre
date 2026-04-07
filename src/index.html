@@ -169,35 +169,11 @@
             <!-- Dropdown pasajeros -->
             <div class="passengers-panel" id="passengersPanel" hidden>
               <div class="pass-row">
-                <div class="pass-info"><span class="pass-type">Adultos</span><span class="pass-age">18+ años</span></div>
+                <div class="pass-info"><span class="pass-type">Pasajeros</span><span class="pass-age">Número de viajeros</span></div>
                 <div class="counter">
-                  <button class="counter-btn" data-type="adults" data-action="dec" aria-label="Reducir adultos">−</button>
-                  <span class="counter-val" id="adultsVal">1</span>
-                  <button class="counter-btn" data-type="adults" data-action="inc" aria-label="Aumentar adultos">+</button>
-                </div>
-              </div>
-              <div class="pass-row">
-                <div class="pass-info"><span class="pass-type">Jóvenes</span><span class="pass-age">12–17 años</span></div>
-                <div class="counter">
-                  <button class="counter-btn" data-type="teens" data-action="dec" aria-label="Reducir jóvenes">−</button>
-                  <span class="counter-val" id="teensVal">0</span>
-                  <button class="counter-btn" data-type="teens" data-action="inc" aria-label="Aumentar jóvenes">+</button>
-                </div>
-              </div>
-              <div class="pass-row">
-                <div class="pass-info"><span class="pass-type">Niños</span><span class="pass-age">2–11 años</span></div>
-                <div class="counter">
-                  <button class="counter-btn" data-type="children" data-action="dec" aria-label="Reducir niños">−</button>
-                  <span class="counter-val" id="childrenVal">0</span>
-                  <button class="counter-btn" data-type="children" data-action="inc" aria-label="Aumentar niños">+</button>
-                </div>
-              </div>
-              <div class="pass-row">
-                <div class="pass-info"><span class="pass-type">Bebés</span><span class="pass-age">0–23 meses</span></div>
-                <div class="counter">
-                  <button class="counter-btn" data-type="infants" data-action="dec" aria-label="Reducir bebés">−</button>
-                  <span class="counter-val" id="infantsVal">0</span>
-                  <button class="counter-btn" data-type="infants" data-action="inc" aria-label="Aumentar bebés">+</button>
+                  <button class="counter-btn" data-type="passengers" data-action="dec" aria-label="Reducir pasajeros">−</button>
+                  <span class="counter-val" id="passengersVal">1</span>
+                  <button class="counter-btn" data-type="passengers" data-action="inc" aria-label="Aumentar pasajeros">+</button>
                 </div>
               </div>
               <div class="cabin-select">
@@ -308,301 +284,41 @@
     </div>
   </section>
 
-  <!-- ===== PROMOCIONES ===== -->
-  <section class="promos-section" aria-labelledby="promos-heading">
+  <!-- ===== CATÁLOGO COMERCIAL UNIFICADO ===== -->
+  <section class="catalogo-section" aria-labelledby="catalogo-heading">
     <div class="container">
       <div class="section-header">
         <div>
           <div class="section-eyebrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-            Ofertas y promociones
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Explora Terra Sky
           </div>
-          <h2 id="promos-heading">Descubre nuestras mejores ofertas</h2>
+          <h2 id="catalogo-heading">Ofertas, destinos y paquetes</h2>
         </div>
-        <a href="resultados.html" class="section-link">Ver todas <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
 
-      <div class="promos-grid">
-        <a href="resultados.html?origen=BOG&destino=MDE" class="promo-card promo-verde">
-          <div class="promo-circle promo-circle-tr"></div>
-          <div class="promo-circle promo-circle-bl"></div>
-          <div class="promo-body">
-            <span class="promo-tag">Oferta especial</span>
-            <h3>Vuelos nacionales</h3>
-            <p>Bogotá · Medellín · Cali</p>
-            <div class="promo-price">desde <strong>89.000 COP</strong></div>
-            <div class="promo-cta">Ver oferta <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=MAD" class="promo-card promo-cyan">
-          <div class="promo-circle promo-circle-tr"></div>
-          <div class="promo-circle promo-circle-bl"></div>
-          <div class="promo-body">
-            <span class="promo-tag">Paquete completo</span>
-            <h3>Madrid + Hotel</h3>
-            <p>7 noches incluidas</p>
-            <div class="promo-price">desde <strong>8.850.000 COP</strong></div>
-            <div class="promo-cta">Ver oferta <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=CTG" class="promo-card promo-orange">
-          <div class="promo-circle promo-circle-tr"></div>
-          <div class="promo-circle promo-circle-bl"></div>
-          <div class="promo-body">
-            <span class="promo-tag">Escapada de verano</span>
-            <h3>Cartagena de Indias</h3>
-            <p>Vuelo + Resort todo incluido</p>
-            <div class="promo-price">desde <strong>1.450.000 COP</strong></div>
-            <div class="promo-cta">Ver oferta <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=JFK" class="promo-card promo-dark">
-          <div class="promo-circle promo-circle-tr"></div>
-          <div class="promo-circle promo-circle-bl"></div>
-          <div class="promo-body">
-            <span class="promo-tag">Temporada alta</span>
-            <h3>Nueva York – JFK</h3>
-            <p>Clase ejecutiva disponible</p>
-            <div class="promo-price">desde <strong>4.980.000 COP</strong></div>
-            <div class="promo-cta">Ver oferta <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== DESTINOS ===== -->
-  <section class="destinations-section" aria-labelledby="destinations-heading">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <div class="section-eyebrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Destinos populares
-          </div>
-          <h2 id="destinations-heading">¿A dónde quieres volar?</h2>
-        </div>
-        <a href="resultados.html" class="section-link">Ver todos <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <!-- Filtros por tipo -->
+      <div class="catalogo-tabs" role="tablist" aria-label="Filtrar catálogo">
+        <button class="catalogo-tab active" data-filter="todos" role="tab" aria-selected="true">Todos</button>
+        <button class="catalogo-tab" data-filter="oferta" role="tab" aria-selected="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          Ofertas
+        </button>
+        <button class="catalogo-tab" data-filter="destino" role="tab" aria-selected="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Destinos
+        </button>
+        <button class="catalogo-tab" data-filter="paquete" role="tab" aria-selected="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Paquetes
+        </button>
       </div>
 
-      <div class="destinations-grid">
-
-        <a href="resultados.html?origen=BOG&destino=MAD" class="dest-card">
-          <div class="dest-img-wrap">
-            <img src="https://images.unsplash.com/photo-1612694882907-80f21c0e2bb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Madrid, España" loading="lazy" />
-            <div class="dest-badges">
-              <span class="badge badge-intl">Internacional</span>
-              <span class="badge badge-hot">🔥 Popular</span>
-            </div>
-          </div>
-          <div class="dest-info">
-            <div>
-              <div class="dest-city">Madrid</div>
-              <div class="dest-country">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                España
-              </div>
-            </div>
-            <div class="dest-price">desde 2.890.000 COP</div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=BCN" class="dest-card">
-          <div class="dest-img-wrap">
-            <img src="https://images.unsplash.com/photo-1691732758999-40e14a08a66a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Barcelona, España" loading="lazy" />
-            <div class="dest-badges">
-              <span class="badge badge-intl">Internacional</span>
-            </div>
-          </div>
-          <div class="dest-info">
-            <div>
-              <div class="dest-city">Barcelona</div>
-              <div class="dest-country">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                España
-              </div>
-            </div>
-            <div class="dest-price">desde 2.870.000 COP</div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=CLO" class="dest-card">
-          <div class="dest-img-wrap">
-            <img src="https://blog.uber-cdn.com/cdn-cgi/image/width=2160,quality=80,onerror=redirect,format=auto/wp-content/uploads/2018/06/CO_X-lugares-turi%CC%81sticos-de-Cali-que-te-dejara%CC%81n-sin-palabras.jpg" alt="Cali, Colombia" loading="lazy" />
-            <div class="dest-badges">
-              <span class="badge badge-nacl">Nacional</span>
-              <span class="badge badge-hot">🔥 Popular</span>
-            </div>
-          </div>
-          <div class="dest-info">
-            <div>
-              <div class="dest-city">Cali</div>
-              <div class="dest-country">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Colombia
-              </div>
-            </div>
-            <div class="dest-price">desde 180.000 COP</div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=CTG" class="dest-card">
-          <div class="dest-img-wrap">
-            <img src="https://images.unsplash.com/photo-1692839685082-c66d810f0a21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Cartagena, Colombia" loading="lazy" />
-            <div class="dest-badges">
-              <span class="badge badge-nacl">Nacional</span>
-            </div>
-          </div>
-          <div class="dest-info">
-            <div>
-              <div class="dest-city">Cartagena</div>
-              <div class="dest-country">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Colombia
-              </div>
-            </div>
-            <div class="dest-price">desde 250.000 COP</div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=MDE" class="dest-card">
-          <div class="dest-img-wrap">
-            <img src="https://images.unsplash.com/photo-1640768239887-77479f49a7dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Medellín, Colombia" loading="lazy" />
-            <div class="dest-badges">
-              <span class="badge badge-nacl">Nacional</span>
-              <span class="badge badge-hot">🔥 Popular</span>
-            </div>
-          </div>
-          <div class="dest-info">
-            <div>
-              <div class="dest-city">Medellín</div>
-              <div class="dest-country">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Colombia
-              </div>
-            </div>
-            <div class="dest-price">desde 160.000 COP</div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=JFK" class="dest-card">
-          <div class="dest-img-wrap">
-            <img src="https://images.unsplash.com/photo-1644530777878-f576db6ac8ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Nueva York, EE. UU." loading="lazy" />
-            <div class="dest-badges">
-              <span class="badge badge-intl">Internacional</span>
-            </div>
-          </div>
-          <div class="dest-info">
-            <div>
-              <div class="dest-city">Nueva York</div>
-              <div class="dest-country">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Estados Unidos
-              </div>
-            </div>
-            <div class="dest-price">desde 2.980.000 COP</div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PAQUETES ===== -->
-  <section class="packages-section" aria-labelledby="packages-heading">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <div class="section-eyebrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            Paquetes turísticos
-          </div>
-          <h2 id="packages-heading">Vuelo + Hotel: Todo incluido</h2>
-        </div>
-        <a href="resultados.html" class="section-link">Ver paquetes <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      </div>
-
-      <div class="packages-grid">
-
-        <a href="resultados.html?origen=BOG&destino=CTG&clase=Económica" class="pkg-card">
-          <div class="pkg-img-wrap">
-            <img src="https://images.unsplash.com/photo-1621944860377-8cfda325a59e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Cartagena Express" loading="lazy" />
-            <div class="pkg-img-overlay"></div>
-            <span class="pkg-discount">-28%</span>
-            <div class="pkg-stars" aria-label="4 estrellas">★★★★</div>
-          </div>
-          <div class="pkg-body">
-            <h3 class="pkg-name">Cartagena Express</h3>
-            <p class="pkg-desc">Vuelo + 3 noches hotel + traslados</p>
-            <ul class="pkg-includes">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Vuelo ida y vuelta
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Hotel 4★ céntrico
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Traslado aeropuerto
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Desayuno incluido
-              </li>
-            </ul>
-            <div class="pkg-pricing">
-              <div class="pkg-price">920.000 COP</div>
-              <div class="pkg-original">1.280.000 COP</div>
-            </div>
-            <div class="btn btn-primary pkg-btn">Ver paquete</div>
-          </div>
-        </a>
-
-        <a href="resultados.html?origen=BOG&destino=MAD&clase=Ejecutiva" class="pkg-card">
-          <div class="pkg-img-wrap">
-            <img src="https://images.unsplash.com/photo-1772354852092-0685c2bf32b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Clase Ejecutiva Madrid" loading="lazy" />
-            <div class="pkg-img-overlay"></div>
-            <span class="pkg-discount">-25%</span>
-            <div class="pkg-stars" aria-label="5 estrellas">★★★★★</div>
-          </div>
-          <div class="pkg-body">
-            <h3 class="pkg-name">Clase Ejecutiva Madrid</h3>
-            <p class="pkg-desc">Vuelo ejecutiva + hotel boutique 5★</p>
-            <ul class="pkg-includes">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Ejecutiva ida y vuelta
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Hotel 5★ Madrid centro
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Acceso Lounge VIP
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Traslado privado
-              </li>
-            </ul>
-            <div class="pkg-pricing">
-              <div class="pkg-price">8.100.000 COP</div>
-              <div class="pkg-original">10.800.000 COP</div>
-            </div>
-            <div class="btn btn-primary pkg-btn">Ver paquete</div>
-          </div>
-        </a>
-
-      </div>
+      <!-- Grid dinámico -->
+      <div class="catalogo-grid" id="catalogoGrid"></div>
 
       <!-- CTA banner -->
-      <div class="packages-cta">
+      <div class="packages-cta" style="margin-top:2rem">
         <div class="packages-cta-body">
           <div class="packages-cta-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -713,7 +429,9 @@
   </div>
 </footer>
 
+<script src="js/mockData.js"></script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -11,14 +11,34 @@
   <style>
     .manage-page { min-height: 100vh; background: var(--col-gray-50); }
 
-    /* Hero */
+    /* Hero — Document management theme (indigo/warm) */
     .manage-hero {
-      background: var(--col-primary);
-      padding: 2.5rem 0;
+      background: linear-gradient(135deg, #312e81 0%, #4338ca 50%, #6366f1 100%);
+      padding: 3rem 0 3.5rem;
       color: var(--col-white);
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .manage-hero h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: .4rem; }
+    .manage-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: -10%;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .manage-hero .container { position: relative; z-index: 1; }
+    .manage-hero-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto .85rem;
+    }
+    .manage-hero h1 { font-size: 1.85rem; font-weight: 800; margin-bottom: .4rem; }
     .manage-hero p  { font-size: .9rem; opacity: .75; }
 
     /* Lookup card */
@@ -81,7 +101,7 @@
 
     /* Booking header card */
     .booking-header-card {
-      background: var(--col-primary);
+      background: linear-gradient(135deg, #312e81 0%, #4338ca 100%);
       border-radius: var(--radius-xl);
       padding: 1.5rem 1.75rem;
       color: var(--col-white);
@@ -226,10 +246,10 @@
       </div>
     </a>
     <nav class="header-nav">
-      <a href="index.html" class="nav-link">Inicio</a>
-      <a href="resultados.html" class="nav-link">Vuelos</a>
-      <a href="estado.html" class="nav-link">Estado del vuelo</a>
+      <a href="reservar.html" class="nav-link">Reservar</a>
+      <a href="gestionar.html" class="nav-link">Gestionar reserva</a>
       <a href="checkin.html" class="nav-link">Check-in</a>
+      <a href="estado.html" class="nav-link">Estado de vuelos</a>
     </nav>
     <div class="header-actions">
       <a href="login.html" class="btn btn-outline-white btn-sm">Iniciar sesión</a>
@@ -240,10 +260,10 @@
     </button>
   </div>
   <nav class="mobile-nav" id="mobileNav" hidden>
-    <a href="index.html" class="mobile-nav-link">Inicio</a>
-    <a href="resultados.html" class="mobile-nav-link">Vuelos</a>
-    <a href="estado.html" class="mobile-nav-link">Estado del vuelo</a>
+    <a href="reservar.html" class="mobile-nav-link">Reservar</a>
+    <a href="gestionar.html" class="mobile-nav-link">Gestionar reserva</a>
     <a href="checkin.html" class="mobile-nav-link">Check-in</a>
+    <a href="estado.html" class="mobile-nav-link">Estado de vuelos</a>
     <div class="mobile-nav-btns">
       <a href="login.html" class="btn btn-outline-white btn-sm" style="flex:1;justify-content:center">Iniciar sesión</a>
       <a href="login.html" class="btn btn-white btn-sm" style="flex:1;justify-content:center">Registrarse</a>
@@ -256,6 +276,9 @@
   <!-- Hero -->
   <div class="manage-hero">
     <div class="container">
+      <div class="manage-hero-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+      </div>
       <h1>Gestionar mi reserva</h1>
       <p>Consulta, modifica o cancela tu reserva de vuelo</p>
     </div>
@@ -298,7 +321,7 @@
         <div>
           <div class="bh-code" id="res-code">TS-BOG001</div>
           <div class="bh-passenger" id="res-passenger">Carlos Andrés Ramírez López</div>
-          <div class="bh-status">
+          <div class="bh-status" id="res-status">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             Confirmada
           </div>
@@ -436,82 +459,94 @@
   </div>
 </footer>
 
+<script src="js/mockData.js"></script>
+<script src="js/global.js"></script>
 <script>
 (function () {
   'use strict';
 
-  // ── Mock data ──
-  const BOOKINGS = [
-    {
-      code: 'TS-BOG001', lastName: 'ramírez',
-      passenger: 'Carlos Andrés Ramírez López',
-      origin: 'BOG', dest: 'MAD', originCity: 'Bogotá', destCity: 'Madrid',
-      dep: '22:30', arr: '14:15', date: '15 Mar 2026', duration: '11h 45min',
-      flight: 'TS-152', stops: 'Directo', cabin: 'Económica', seat: '14A',
-      total: '1.002.000'
-    },
-    {
-      code: 'TS-MDE002', lastName: 'gómez',
-      passenger: 'María Isabel Gómez Vargas',
-      origin: 'MDE', dest: 'BCN', originCity: 'Medellín', destCity: 'Barcelona',
-      dep: '14:10', arr: '08:30', date: '22 Mar 2026', duration: '12h 20min',
-      flight: 'TS-241', stops: 'Directo', cabin: 'Ejecutiva', seat: '2C',
-      total: '3.450.000'
-    },
-    {
-      code: 'TS-CLO003', lastName: 'martínez',
-      passenger: 'Andrés Felipe Martínez Ortiz',
-      origin: 'CLO', dest: 'JFK', originCity: 'Cali', destCity: 'Nueva York',
-      dep: '09:45', arr: '19:20', date: '28 Mar 2026', duration: '9h 35min',
-      flight: 'TS-378', stops: 'Directo', cabin: 'Económica', seat: '28B',
-      total: '1.520.000'
-    }
-  ];
+  var currentBooking = null;
 
-  // ── Lookup form ──
+  // ── Lookup form – usa TSData ──
   document.getElementById('lookupForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    const code  = document.getElementById('bookingCode').value.trim().toUpperCase();
-    const lname = document.getElementById('lastName').value.trim().toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    var code  = document.getElementById('bookingCode').value.trim().toUpperCase();
+    var lname = document.getElementById('lastName').value.trim();
 
-    const booking = BOOKINGS.find(b =>
-      b.code === code &&
-      b.lastName.normalize('NFD').replace(/[\u0300-\u036f]/g, '') === lname
-    );
+    var booking = TSData.findReservaByCodeAndLastName(code, lname);
 
-    const errEl = document.getElementById('lookupError');
+    var errEl = document.getElementById('lookupError');
     if (!booking) {
       errEl.classList.add('show');
       document.getElementById('manageResult').hidden = true;
+      showToast('No se encontró la reserva', 'error');
       return;
     }
     errEl.classList.remove('show');
+    currentBooking = booking;
     renderBooking(booking);
   });
 
   function renderBooking(b) {
     document.getElementById('res-code').textContent      = b.code;
-    document.getElementById('res-passenger').textContent = b.passenger;
-    document.getElementById('res-date').textContent      = b.date;
+    document.getElementById('res-passenger').textContent = b.passenger || (b.firstName + ' ' + b.lastName);
+    document.getElementById('res-date').textContent      = b.date || '';
     document.getElementById('res-origin').textContent    = b.origin;
     document.getElementById('res-dest').textContent      = b.dest;
-    document.getElementById('res-originCity').textContent = b.originCity;
-    document.getElementById('res-destCity').textContent   = b.destCity;
-    document.getElementById('res-dep').textContent        = b.dep;
-    document.getElementById('res-arr').textContent        = b.arr;
-    document.getElementById('res-duration').textContent   = b.duration;
-    document.getElementById('res-stops').textContent      = b.stops + ' · ' + b.flight;
-    document.getElementById('res-cabin').textContent      = b.cabin;
-    document.getElementById('res-total').textContent      = 'COP ' + b.total;
+    document.getElementById('res-originCity').textContent = b.originCity || TSData.airportLabel(b.origin);
+    document.getElementById('res-destCity').textContent   = b.destCity || TSData.airportLabel(b.dest);
+    document.getElementById('res-dep').textContent        = b.dep || '';
+    document.getElementById('res-arr').textContent        = b.arr || '';
+    document.getElementById('res-duration').textContent   = b.duration || '';
+    document.getElementById('res-stops').textContent      = (b.stops || 'Directo') + ' · ' + (b.flightCode || b.code);
+    document.getElementById('res-cabin').textContent      = b.cabin || 'Económica';
+    document.getElementById('res-total').textContent      = typeof b.total === 'number' ? TSData.formatCOP(b.total) : 'COP ' + (b.total || '');
 
-    const seatsList = document.getElementById('seatsList');
-    const name = b.passenger.split(' ').slice(0,2).join(' ');
-    seatsList.innerHTML = `
-      <div class="info-row">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>${name} — Asiento <strong>${b.seat}</strong></span>
-      </div>`;
+    // Estado badge
+    var statusEl = document.getElementById('res-status');
+    if (statusEl) {
+      var statusColor = b.estado === 'Confirmada' ? 'rgba(34,197,94,.3)' : b.estado === 'Cancelada' ? 'rgba(239,68,68,.3)' : b.estado === 'Check-in' ? 'rgba(59,130,246,.3)' : 'rgba(255,255,255,.2)';
+      var statusIcon = b.estado === 'Cancelada'
+        ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+        : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      statusEl.style.background = statusColor;
+      statusEl.innerHTML = statusIcon + ' ' + (b.estado || 'Confirmada');
+    }
+
+    var seatsList = document.getElementById('seatsList');
+    var name = (b.passenger || (b.firstName + ' ' + b.lastName)).split(' ').slice(0,2).join(' ');
+    seatsList.innerHTML =
+      '<div class="info-row">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+        '<span>' + name + ' — Asiento <strong>' + (b.seat || 'Sin asignar') + '</strong></span>' +
+      '</div>';
+
+    // Ocultar botón de check-in si ya hizo check-in o cancelada
+    var checkinLink = document.querySelector('.actions-bar a[href*="checkin"]');
+    if (checkinLink) {
+      if (b.checkedIn || b.estado === 'Check-in') {
+        checkinLink.style.opacity = '0.5';
+        checkinLink.style.pointerEvents = 'none';
+        checkinLink.textContent = '✓ Check-in realizado';
+      } else if (b.estado === 'Cancelada') {
+        checkinLink.style.opacity = '0.5';
+        checkinLink.style.pointerEvents = 'none';
+      } else {
+        checkinLink.href = 'checkin.html?code=' + b.code;
+        checkinLink.style.opacity = '1';
+        checkinLink.style.pointerEvents = 'auto';
+      }
+    }
+
+    // Ocultar botón cancelar si ya cancelada
+    var cancelBtn = document.querySelector('[onclick*="confirmCancel"]');
+    if (cancelBtn && b.estado === 'Cancelada') {
+      cancelBtn.disabled = true;
+      cancelBtn.style.opacity = '0.5';
+    } else if (cancelBtn) {
+      cancelBtn.disabled = false;
+      cancelBtn.style.opacity = '1';
+    }
 
     document.getElementById('manageResult').hidden = false;
     document.getElementById('manageResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -523,30 +558,38 @@
     document.getElementById('lastName').value    = lname;
   };
 
-  // ── Cancel ──
+  // ── Cancel – usa showConfirmModal de global.js y persiste ──
   window.confirmCancel = function () {
-    if (confirm('¿Estás seguro de que deseas cancelar esta reserva? Esta acción no se puede deshacer.')) {
-      alert('Reserva cancelada. Se procesará el reembolso según las políticas vigentes.');
-      document.getElementById('manageResult').hidden = true;
-    }
+    if (!currentBooking) return;
+    showConfirmModal(
+      'Cancelar reserva',
+      '¿Estás seguro de que deseas cancelar la reserva <strong>' + currentBooking.code + '</strong>? Esta acción no se puede deshacer y se procesará el reembolso según las políticas vigentes.',
+      function() {
+        TSData.updateReserva(currentBooking.code, { estado: 'Cancelada' });
+        currentBooking.estado = 'Cancelada';
+        renderBooking(currentBooking);
+        showToast('Reserva ' + currentBooking.code + ' cancelada correctamente', 'warning', 5000);
+      },
+      { danger: true, confirmText: 'Sí, cancelar reserva' }
+    );
   };
 
   // ── Print ──
   window.printPage = function () { window.print(); };
 
   // ── Hamburger ──
-  const ham = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
+  var ham = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobileNav');
   if (ham) {
-    ham.addEventListener('click', () => {
-      const open = ham.classList.toggle('open');
+    ham.addEventListener('click', function() {
+      var open = ham.classList.toggle('open');
       ham.setAttribute('aria-expanded', open);
       mobileNav.hidden = !open;
     });
   }
 
   // Auto-fill from URL
-  const p = new URLSearchParams(location.search);
+  var p = new URLSearchParams(location.search);
   if (p.get('code') && p.get('apellido')) {
     document.getElementById('bookingCode').value = p.get('code');
     document.getElementById('lastName').value    = p.get('apellido');
@@ -555,5 +598,6 @@
 })();
 </script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>

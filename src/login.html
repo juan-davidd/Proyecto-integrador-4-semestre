@@ -77,8 +77,8 @@
         </div>
       </a>
 
-      <!-- Card del formulario -->
-      <div class="login-form-card">
+      <!-- Card del formulario de LOGIN -->
+      <div class="login-form-card" id="loginCard">
 
         <h1 class="login-title">Bienvenido de vuelta</h1>
         <p class="login-sub">Ingresa tus credenciales para continuar</p>
@@ -124,43 +124,188 @@
 
       </div><!-- /.login-form-card -->
 
+      <!-- Card del formulario de REGISTRO -->
+      <div class="login-form-card" id="registerCard" style="display: none;">
+
+        <h1 class="login-title">Crear cuenta</h1>
+        <p class="login-sub">Únete a Terra Sky y reserva tus vuelos</p>
+
+        <form class="login-form" id="registerForm" novalidate>
+
+          <div class="form-group">
+            <label for="regName">Nombre completo</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <input type="text" id="regName" name="name" placeholder="Tu nombre" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regEmail">Correo electrónico</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </span>
+              <input type="text" id="regEmail" name="email" placeholder="tu@correo.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regPassword">Contraseña</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input type="password" id="regPassword" name="password" placeholder="••••••••" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regPassword2">Confirmar contraseña</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input type="password" id="regPassword2" name="password2" placeholder="••••••••" required />
+            </div>
+          </div>
+
+          <label class="remember-label" style="margin-bottom: 1.25rem;">
+            <input type="checkbox" id="terms" name="terms" required /> Acepto los términos y condiciones
+          </label>
+
+          <div class="login-error" id="registerError" role="alert"></div>
+
+          <button type="submit" class="btn btn-primary login-submit">Crear cuenta</button>
+
+        </form>
+
+        <div class="login-register">
+          ¿Ya tienes cuenta? <a href="#login">Inicia sesión</a>
+        </div>
+
+      </div><!-- /.login-form-card -->
+
     </div><!-- /.login-form-wrap -->
   </div><!-- /.login-panel-form -->
 
 </div><!-- /.login-split -->
 
 <script>
+  const STORAGE_KEY = 'ts_user';
+  const REGISTROS_KEY = 'ts_registros';
   const USERS = [
-    { email: 'carlos.ramirez@email.com', password: '1234', role: 'cliente', redirect: 'index.html' },
-    { email: 'agente@aerolinea.com',     password: '1234', role: 'agente',  redirect: 'index.html' },
-    { email: 'admin@aerolinea.com',      password: '1234', role: 'admin',   redirect: 'index.html' },
+    { email: 'carlos.ramirez@email.com', password: '1234', role: 'cliente', redirect: 'dashboard-cliente.html' },
+    { email: 'agente@aerolinea.com',     password: '1234', role: 'agente',  redirect: 'dashboard-agente.html' },
+    { email: 'admin@aerolinea.com',      password: '1234', role: 'admin',   redirect: 'dashboard-admin.html' },
   ];
 
-  const form     = document.getElementById('loginForm');
-  const errorEl  = document.getElementById('loginError');
-  const emailInp = document.getElementById('email');
-  const passInp  = document.getElementById('password');
-
-  function showError(msg) { errorEl.textContent = msg; errorEl.classList.add('show'); }
-  function clearError()   { errorEl.textContent = ''; errorEl.classList.remove('show'); }
-
-  function tryLogin(email, password) {
-    const user = USERS.find(u => u.email === email && u.password === password);
-    if (!user) { showError('Correo o contraseña incorrectos.'); return; }
-    sessionStorage.setItem('ts_user', JSON.stringify({ email: user.email, role: user.role }));
-    window.location.href = user.redirect;
+  function getRedirectByRole(role) {
+    if (role === 'admin') return 'dashboard-admin.html';
+    if (role === 'agente') return 'dashboard-agente.html';
+    return 'dashboard-cliente.html';
   }
 
-  form.addEventListener('submit', e => {
+  const loginCard = document.getElementById('loginCard');
+  const registerCard = document.getElementById('registerCard');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+  const loginErrorEl = document.getElementById('loginError');
+  const registerErrorEl = document.getElementById('registerError');
+  const nextPage = new URLSearchParams(window.location.search).get('next');
+
+  // ═══ Funciones de utilidad ═══════════════════════════════════════════════
+  function showError(el, msg) { el.textContent = msg; el.classList.add('show'); }
+  function clearError(el)     { el.textContent = ''; el.classList.remove('show'); }
+
+  function switchView(view) {
+    if (view === 'registro') {
+      loginCard.style.display = 'none';
+      registerCard.style.display = 'block';
+      window.location.hash = 'registro';
+    } else {
+      loginCard.style.display = 'block';
+      registerCard.style.display = 'none';
+      window.location.hash = 'login';
+    }
+  }
+
+  // ═══ REGISTRO ════════════════════════════════════════════════════════════
+  registerForm.addEventListener('submit', e => {
     e.preventDefault();
-    clearError();
-    const email = emailInp.value.trim();
-    const pass  = passInp.value;
-    if (!email) { showError('Ingresa tu correo electrónico.'); return; }
-    if (!pass)  { showError('Ingresa tu contraseña.'); return; }
-    tryLogin(email, pass);
+    clearError(registerErrorEl);
+
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass = document.getElementById('regPassword').value;
+    const pass2 = document.getElementById('regPassword2').value;
+    const terms = document.getElementById('terms').checked;
+
+    if (!name) { showError(registerErrorEl, 'Ingresa tu nombre completo.'); return; }
+    if (!email) { showError(registerErrorEl, 'Ingresa tu correo electrónico.'); return; }
+    if (!pass) { showError(registerErrorEl, 'Ingresa una contraseña.'); return; }
+    if (pass !== pass2) { showError(registerErrorEl, 'Las contraseñas no coinciden.'); return; }
+    if (!terms) { showError(registerErrorEl, 'Debes aceptar los términos y condiciones.'); return; }
+
+    // Guardar nuevo usuario en sessionStorage (solo mientras corra la app)
+    let registros = JSON.parse(sessionStorage.getItem(REGISTROS_KEY) || '[]');
+    registros.push({ name, email, password: pass, role: 'cliente', redirect: 'dashboard-cliente.html', createdAt: new Date().toISOString() });
+    sessionStorage.setItem(REGISTROS_KEY, JSON.stringify(registros));
+
+    // Iniciar sesión automáticamente con la nueva cuenta
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email, role: 'cliente' }));
+    const safeNext = (nextPage && !String(nextPage).includes('login.html')) ? nextPage : 'dashboard-cliente.html';
+    window.location.href = safeNext;
   });
+
+  // ═══ LOGIN ═══════════════════════════════════════════════════════════════
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    clearError(loginErrorEl);
+
+    const email = document.getElementById('email').value.trim();
+    const pass = document.getElementById('password').value;
+
+    if (!email) { showError(loginErrorEl, 'Ingresa tu correo electrónico.'); return; }
+    if (!pass) { showError(loginErrorEl, 'Ingresa tu contraseña.'); return; }
+
+    // Buscar en usuarios predefinidos
+    let user = USERS.find(u => u.email === email && u.password === pass);
+
+    // Si no existe, buscar en registros guardados en sessionStorage
+    if (!user) {
+      const registros = JSON.parse(sessionStorage.getItem(REGISTROS_KEY) || '[]');
+      user = registros.find(r => r.email === email && r.password === pass);
+    }
+
+    if (!user) {
+      showError(loginErrorEl, 'Correo o contraseña incorrectos.');
+      return;
+    }
+
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ name: user.name || user.email.split('@')[0], email: user.email, role: user.role }));
+    const redirectDash = getRedirectByRole(user.role);
+    const safeNext = (nextPage && !String(nextPage).includes('login.html') && !String(nextPage).includes('dashboard')) ? nextPage : redirectDash;
+    window.location.href = safeNext;
+  });
+
+  // ═══ Manejo de hash para cambiar entre vistas ════════════════════════════
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#registro') {
+      switchView('registro');
+    } else {
+      switchView('login');
+    }
+  });
+
+  // Mostrar vista inicial según hash
+  if (window.location.hash === '#registro') {
+    switchView('registro');
+  }
 </script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>

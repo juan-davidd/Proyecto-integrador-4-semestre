@@ -11,21 +11,43 @@
   <style>
     .checkin-page { min-height: 100vh; background: var(--col-gray-50); }
 
-    /* Hero */
+    /* Hero — Boarding / Check-in theme (teal/emerald) */
     .checkin-hero {
-      background: linear-gradient(135deg, var(--col-primary) 0%, var(--col-cyan) 100%);
+      background: linear-gradient(135deg, #065f46 0%, #0d9488 50%, #14b8a6 100%);
       padding: 3rem 0 5rem;
       color: var(--col-white);
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
+    .checkin-hero::before {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .checkin-hero::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .checkin-hero .container { position: relative; z-index: 1; }
     .checkin-hero-icon {
       width: 64px; height: 64px;
       background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1rem;
     }
-    .checkin-hero h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: .4rem; }
+    .checkin-hero h1 { font-size: 1.85rem; font-weight: 800; margin-bottom: .4rem; }
     .checkin-hero p  { font-size: .9rem; opacity: .8; max-width: 480px; margin: 0 auto; }
 
     /* Window */
@@ -161,7 +183,6 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-    .bp-airport { }
     .bp-code { font-size: 2.5rem; font-weight: 800; color: var(--col-gray-900); line-height: 1; }
     .bp-city { font-size: .75rem; color: var(--col-gray-500); }
     .bp-mid { flex: 1; text-align: center; }
@@ -234,10 +255,10 @@
       </div>
     </a>
     <nav class="header-nav">
-      <a href="index.html" class="nav-link">Inicio</a>
-      <a href="resultados.html" class="nav-link">Vuelos</a>
-      <a href="estado.html" class="nav-link">Estado del vuelo</a>
-      <a href="gestionar.html" class="nav-link">Mi reserva</a>
+      <a href="reservar.html" class="nav-link">Reservar</a>
+      <a href="gestionar.html" class="nav-link">Gestionar reserva</a>
+      <a href="checkin.html" class="nav-link">Check-in</a>
+      <a href="estado.html" class="nav-link">Estado de vuelos</a>
     </nav>
     <div class="header-actions">
       <a href="login.html" class="btn btn-outline-white btn-sm">Iniciar sesión</a>
@@ -248,10 +269,10 @@
     </button>
   </div>
   <nav class="mobile-nav" id="mobileNav" hidden>
-    <a href="index.html" class="mobile-nav-link">Inicio</a>
-    <a href="resultados.html" class="mobile-nav-link">Vuelos</a>
-    <a href="estado.html" class="mobile-nav-link">Estado del vuelo</a>
-    <a href="gestionar.html" class="mobile-nav-link">Mi reserva</a>
+    <a href="reservar.html" class="mobile-nav-link">Reservar</a>
+    <a href="gestionar.html" class="mobile-nav-link">Gestionar reserva</a>
+    <a href="checkin.html" class="mobile-nav-link">Check-in</a>
+    <a href="estado.html" class="mobile-nav-link">Estado de vuelos</a>
     <div class="mobile-nav-btns">
       <a href="login.html" class="btn btn-outline-white btn-sm" style="flex:1;justify-content:center">Iniciar sesión</a>
       <a href="login.html" class="btn btn-white btn-sm" style="flex:1;justify-content:center">Registrarse</a>
@@ -265,7 +286,7 @@
   <div class="checkin-hero">
     <div class="container">
       <div class="checkin-hero-icon">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       </div>
       <h1>Check-in Online</h1>
       <p>Completa tu check-in hasta 24 horas antes del vuelo y obtén tu tarjeta de embarque digital</p>
@@ -525,64 +546,47 @@
   </div>
 </footer>
 
+<script src="js/mockData.js"></script>
+<script src="js/global.js"></script>
 <script>
 (function () {
   'use strict';
 
-  // ── Mock data ──
-  const BOOKINGS = {
-    'TS-BOG001': {
-      passenger: 'Carlos Andrés Ramírez López',
-      firstName: 'Carlos Andrés', lastName: 'Ramírez López',
-      origin: 'BOG', dest: 'MAD', originCity: 'Bogotá', destCity: 'Madrid',
-      dep: '22:30', arr: '14:15', date: '15 Mar 2026', short: '15 MAR',
-      flight: 'TS-152', seat: '14A', cabin: 'Económica', gate: 'B12'
-    },
-    'TS-MDE002': {
-      passenger: 'María Isabel Gómez Vargas',
-      firstName: 'María Isabel', lastName: 'Gómez Vargas',
-      origin: 'MDE', dest: 'BCN', originCity: 'Medellín', destCity: 'Barcelona',
-      dep: '14:10', arr: '08:30', date: '22 Mar 2026', short: '22 MAR',
-      flight: 'TS-241', seat: '2C', cabin: 'Ejecutiva', gate: 'A05'
-    },
-    'TS-CLO003': {
-      passenger: 'Andrés Felipe Martínez Ortiz',
-      firstName: 'Andrés Felipe', lastName: 'Martínez Ortiz',
-      origin: 'CLO', dest: 'JFK', originCity: 'Cali', destCity: 'Nueva York',
-      dep: '09:45', arr: '19:20', date: '28 Mar 2026', short: '28 MAR',
-      flight: 'TS-378', seat: '28B', cabin: 'Económica', gate: 'C21'
-    }
-  };
-
-  const LAST_NAMES = {
-    'TS-BOG001': 'ramírez',
-    'TS-MDE002': 'gómez',
-    'TS-CLO003': 'martínez'
-  };
-
-  let currentBooking = null;
+  var currentBooking = null;
 
   // ── Step manager ──
   window.goCI = function (n) {
-    document.querySelectorAll('.ci-step').forEach((el, i) => {
+    document.querySelectorAll('.ci-step').forEach(function(el, i) {
       el.classList.toggle('active', i === n);
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // ── Step 0: lookup ──
+  // ── Step 0: lookup — usa TSData ──
   document.getElementById('ciLookupForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    const code  = document.getElementById('ci-code').value.trim().toUpperCase();
-    const lname = (document.getElementById('ci-last').value.trim())
-      .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    var code  = document.getElementById('ci-code').value.trim().toUpperCase();
+    var lname = document.getElementById('ci-last').value.trim();
+    var errEl = document.getElementById('ciLookupErr');
 
-    const booking = BOOKINGS[code];
-    const expected = (LAST_NAMES[code] || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    const errEl = document.getElementById('ciLookupErr');
+    var booking = TSData.findReservaByCodeAndLastName(code, lname);
 
-    if (!booking || expected !== lname) {
-      errEl.classList.add('show'); return;
+    if (!booking) {
+      errEl.classList.add('show');
+      showToast('No se encontró la reserva', 'error');
+      return;
+    }
+    if (booking.estado === 'Cancelada') {
+      errEl.textContent = 'Esta reserva fue cancelada y no es válida para check-in.';
+      errEl.classList.add('show');
+      showToast('Reserva cancelada', 'warning');
+      return;
+    }
+    if (booking.checkedIn) {
+      errEl.textContent = 'Ya realizaste el check-in para esta reserva.';
+      errEl.classList.add('show');
+      showToast('Check-in ya realizado previamente', 'info');
+      return;
     }
     errEl.classList.remove('show');
     currentBooking = booking;
@@ -591,24 +595,31 @@
   });
 
   function prefillStep1() {
-    const b = currentBooking;
-    document.getElementById('ci-origin').textContent  = b.origin;
-    document.getElementById('ci-dest').textContent    = b.dest;
-    document.getElementById('ci-dep').textContent     = b.dep;
-    document.getElementById('ci-arr').textContent     = b.arr;
-    document.getElementById('ci-date').textContent    = b.date;
-    document.getElementById('ci-flightNo').textContent = b.flight;
-    const parts = b.passenger.split(' ');
-    document.getElementById('ci-fn').value = parts.slice(0,2).join(' ');
-    document.getElementById('ci-ln').value = parts.slice(2).join(' ');
+    var b = currentBooking;
+    document.getElementById('ci-origin').textContent   = b.origin;
+    document.getElementById('ci-dest').textContent     = b.dest;
+    document.getElementById('ci-dep').textContent      = b.dep || '';
+    document.getElementById('ci-arr').textContent      = b.arr || '';
+    document.getElementById('ci-date').textContent     = b.date || '';
+    document.getElementById('ci-flightNo').textContent = b.flightCode || b.code;
+    document.getElementById('ci-fn').value = b.firstName || '';
+    document.getElementById('ci-ln').value = b.lastName || '';
+    if (b.email) document.getElementById('ci-email').value = b.email;
+    if (b.docNumber) document.getElementById('ci-docnum').value = b.docNumber;
+    if (b.docType) {
+      var sel = document.getElementById('ci-doctype');
+      for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].text === b.docType) { sel.selectedIndex = i; break; }
+      }
+    }
   }
 
   // ── Step 1: passenger confirm ──
   document.getElementById('ciPassForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    const doc   = document.getElementById('ci-docnum').value.trim();
-    const email = document.getElementById('ci-email').value.trim();
-    const errEl = document.getElementById('ciPassErr');
+    var doc   = document.getElementById('ci-docnum').value.trim();
+    var email = document.getElementById('ci-email').value.trim();
+    var errEl = document.getElementById('ciPassErr');
 
     if (!doc) {
       errEl.textContent = 'Ingresa tu número de documento.';
@@ -623,32 +634,41 @@
       return;
     }
     errEl.classList.remove('show');
+
+    // Persistir check-in en sessionStorage
+    TSData.updateReserva(currentBooking.code, { checkedIn: true, estado: 'Check-in' });
+    showToast('¡Check-in completado exitosamente!', 'success', 5000);
+
     buildBoardingPass();
     goCI(2);
   });
 
   function buildBoardingPass() {
-    const b = currentBooking;
-    document.getElementById('bp-flightLabel').textContent  = 'Vuelo ' + b.flight;
+    var b = currentBooking;
+    var originCity = b.originCity || (TSData.AIRPORT_MAP[b.origin] ? TSData.AIRPORT_MAP[b.origin].city : b.origin);
+    var destCity   = b.destCity   || (TSData.AIRPORT_MAP[b.dest]   ? TSData.AIRPORT_MAP[b.dest].city   : b.dest);
+
+    document.getElementById('bp-flightLabel').textContent  = 'Vuelo ' + (b.flightCode || b.code);
     document.getElementById('bp-origin').textContent       = b.origin;
-    document.getElementById('bp-originCity').textContent   = b.originCity;
+    document.getElementById('bp-originCity').textContent   = originCity;
     document.getElementById('bp-dest').textContent         = b.dest;
-    document.getElementById('bp-destCity').textContent     = b.destCity;
-    document.getElementById('bp-flightNo').textContent     = b.flight;
-    document.getElementById('bp-name').textContent         = b.passenger.toUpperCase();
-    document.getElementById('bp-date').textContent         = b.short;
-    document.getElementById('bp-dep').textContent          = b.dep;
-    document.getElementById('bp-seat').textContent         = b.seat;
-    document.getElementById('bp-cabin').textContent        = b.cabin;
-    document.getElementById('bp-gate').textContent         = b.gate;
-    document.getElementById('bp-barcode-text').textContent = 'TS ' + b.origin + ' ' + b.dest + ' ' + b.short.replace(' ','') + ' ' + b.seat;
+    document.getElementById('bp-destCity').textContent     = destCity;
+    document.getElementById('bp-flightNo').textContent     = b.flightCode || b.code;
+    document.getElementById('bp-name').textContent         = (b.passenger || (b.firstName + ' ' + b.lastName)).toUpperCase();
+    document.getElementById('bp-date').textContent         = b.dateShort || b.date || '';
+    document.getElementById('bp-dep').textContent          = b.dep || '';
+    document.getElementById('bp-seat').textContent         = b.seat || 'Sin asignar';
+    document.getElementById('bp-cabin').textContent        = b.cabin || 'Económica';
+    document.getElementById('bp-gate').textContent         = b.gate || '—';
+    var shortDate = (b.dateShort || b.date || '').replace(/\s/g,'');
+    document.getElementById('bp-barcode-text').textContent = 'TS ' + b.origin + ' ' + b.dest + ' ' + shortDate + ' ' + (b.seat||'');
 
     // Generate barcode bars
-    const barsEl = document.getElementById('bpBars');
+    var barsEl = document.getElementById('bpBars');
     barsEl.innerHTML = '';
-    const heights = [20,35,48,30,56,42,28,18,50,38,25,44,32,56,20,35,48,30,42,28,18,50,38,25,44,32];
-    heights.forEach(h => {
-      const bar = document.createElement('div');
+    var heights = [20,35,48,30,56,42,28,18,50,38,25,44,32,56,20,35,48,30,42,28,18,50,38,25,44,32];
+    heights.forEach(function(h) {
+      var bar = document.createElement('div');
       bar.className = 'bp-bar';
       bar.style.height = h + 'px';
       barsEl.appendChild(bar);
@@ -662,29 +682,29 @@
   };
 
   // ── Hamburger ──
-  const ham = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
+  var ham = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobileNav');
   if (ham) {
-    ham.addEventListener('click', () => {
-      const open = ham.classList.toggle('open');
+    ham.addEventListener('click', function() {
+      var open = ham.classList.toggle('open');
       ham.setAttribute('aria-expanded', open);
       mobileNav.hidden = !open;
     });
   }
 
   // ── Auto-fill from URL params ──
-  const p = new URLSearchParams(location.search);
-  const urlCode = p.get('code');
+  var p = new URLSearchParams(location.search);
+  var urlCode = p.get('code');
   if (urlCode) {
     document.getElementById('ci-code').value = urlCode;
-    const b = BOOKINGS[urlCode.toUpperCase()];
+    var b = TSData.findReserva(urlCode);
     if (b) {
-      const nameparts = b.passenger.split(' ');
-      document.getElementById('ci-last').value = nameparts[2] || nameparts[1] || '';
+      document.getElementById('ci-last').value = b.lastName || '';
     }
   }
 })();
 </script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>

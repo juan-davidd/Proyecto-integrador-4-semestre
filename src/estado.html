@@ -11,14 +11,54 @@
   <style>
     .status-page { min-height: 100vh; background: var(--col-gray-50); }
 
-    /* Hero */
+    /* Hero — Flight tracking radar theme */
     .status-hero {
-      background: var(--col-primary);
-      padding: 2.5rem 0 5rem;
+      background: linear-gradient(160deg, #041e42 0%, #0B3D91 40%, #0e4a7a 100%);
+      padding: 3rem 0 5.5rem;
       color: var(--col-white);
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .status-hero h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: .4rem; }
+    .status-hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.06);
+      pointer-events: none;
+    }
+    .status-hero::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.08);
+      pointer-events: none;
+    }
+    .status-hero .container { position: relative; z-index: 1; }
+    .status-hero-icon {
+      width: 56px; height: 56px;
+      background: rgba(0,153,230,.2);
+      border: 1px solid rgba(0,153,230,.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      animation: pulseRadar 2s ease-in-out infinite;
+    }
+    @keyframes pulseRadar {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,153,230,.3); }
+      50% { box-shadow: 0 0 0 12px rgba(0,153,230,0); }
+    }
+    .status-hero h1 { font-size: 1.85rem; font-weight: 800; margin-bottom: .4rem; }
     .status-hero p  { font-size: .9rem; opacity: .75; }
 
     /* Lookup card */
@@ -265,10 +305,10 @@
       </div>
     </a>
     <nav class="header-nav">
-      <a href="index.html" class="nav-link">Inicio</a>
-      <a href="resultados.html" class="nav-link">Vuelos</a>
+      <a href="reservar.html" class="nav-link">Reservar</a>
+      <a href="gestionar.html" class="nav-link">Gestionar reserva</a>
       <a href="checkin.html" class="nav-link">Check-in</a>
-      <a href="gestionar.html" class="nav-link">Mi reserva</a>
+      <a href="estado.html" class="nav-link">Estado de vuelos</a>
     </nav>
     <div class="header-actions">
       <a href="login.html" class="btn btn-outline-white btn-sm">Iniciar sesión</a>
@@ -279,10 +319,10 @@
     </button>
   </div>
   <nav class="mobile-nav" id="mobileNav" hidden>
-    <a href="index.html" class="mobile-nav-link">Inicio</a>
-    <a href="resultados.html" class="mobile-nav-link">Vuelos</a>
+    <a href="reservar.html" class="mobile-nav-link">Reservar</a>
+    <a href="gestionar.html" class="mobile-nav-link">Gestionar reserva</a>
     <a href="checkin.html" class="mobile-nav-link">Check-in</a>
-    <a href="gestionar.html" class="mobile-nav-link">Mi reserva</a>
+    <a href="estado.html" class="mobile-nav-link">Estado de vuelos</a>
     <div class="mobile-nav-btns">
       <a href="login.html" class="btn btn-outline-white btn-sm" style="flex:1;justify-content:center">Iniciar sesión</a>
       <a href="login.html" class="btn btn-white btn-sm" style="flex:1;justify-content:center">Registrarse</a>
@@ -295,6 +335,9 @@
   <!-- Hero -->
   <div class="status-hero">
     <div class="container">
+      <div class="status-hero-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
       <h1>Estado del Vuelo</h1>
       <p>Consulta en tiempo real la información de tu vuelo Terra Sky</p>
     </div>
@@ -485,20 +528,13 @@
   </div>
 </footer>
 
+<script src="js/mockData.js"></script>
+<script src="js/global.js"></script>
 <script>
 (function () {
   'use strict';
 
-  const FLIGHTS = {
-    'TS-152':  { origin:'BOG', dest:'MAD', originCity:'Bogotá',    destCity:'Madrid',     dep:'22:30', arr:'14:15', duration:'11h 45min', status:'ontime',   statusText:'A tiempo',        progress:0,  terminal:'T1', gate:'B12', boarding:'21:45', aircraft:'A330-200', date:'15 Mar 2026', planePos:'En tierra · En preparación' },
-    'TS-241':  { origin:'MDE', dest:'BCN', originCity:'Medellín',  destCity:'Barcelona',  dep:'14:10', arr:'08:30', duration:'12h 20min', status:'boarding',  statusText:'Embarcando',      progress:5,  terminal:'T2', gate:'A05', boarding:'13:30', aircraft:'B787-9',   date:'22 Mar 2026', planePos:'Embarque en progreso' },
-    'TS-378':  { origin:'CLO', dest:'JFK', originCity:'Cali',      destCity:'Nueva York', dep:'09:45', arr:'19:20', duration:'9h 35min',  status:'delayed',   statusText:'Demorado 25min',  progress:0,  terminal:'T1', gate:'C21', boarding:'10:05', aircraft:'B737-MAX', date:'28 Mar 2026', planePos:'En tierra · Demorado por clima', newDep:'10:10', newArr:'19:45' },
-    'TS-090':  { origin:'BOG', dest:'MDE', originCity:'Bogotá',    destCity:'Medellín',   dep:'06:15', arr:'07:05', duration:'50min',     status:'arrived',   statusText:'Aterrizó',        progress:100, terminal:'T1', gate:'D03', boarding:'05:45', aircraft:'A320neo', date:'Hoy',         planePos:'Aterrizó a las 07:02' },
-    'TS-305':  { origin:'CTG', dest:'BOG', originCity:'Cartagena', destCity:'Bogotá',     dep:'11:30', arr:'12:20', duration:'50min',     status:'ontime',    statusText:'A tiempo',        progress:0,  terminal:'T1', gate:'E08', boarding:'11:00', aircraft:'A320neo', date:'Hoy',         planePos:'En tierra · Abordará pronto' },
-    'TS-412':  { origin:'BOG', dest:'MIA', originCity:'Bogotá',    destCity:'Miami',      dep:'15:55', arr:'20:45', duration:'4h 50min',  status:'ontime',    statusText:'A tiempo',        progress:0,  terminal:'T1', gate:'F14', boarding:'15:20', aircraft:'B737-MAX', date:'Hoy',        planePos:'En tierra · En preparación' },
-  };
-
-  const STATUS_CLASSES = {
+  var STATUS_CLASSES = {
     ontime:    'status-ontime',
     boarding:  'status-boarding',
     delayed:   'status-delayed',
@@ -506,7 +542,7 @@
     arrived:   'status-arrived'
   };
 
-  const ICONS = {
+  var ICONS = {
     ontime:    '<polyline points="20 6 9 17 4 12"/>',
     boarding:  '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
     delayed:   '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
@@ -514,7 +550,7 @@
     arrived:   '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>'
   };
 
-  const UPDATES = {
+  var UPDATES = {
     ontime:   [
       { time: 'Ayer 23:00', msg: 'Vuelo programado y confirmado.', active: false },
       { time: 'Hoy 04:00',  msg: 'Aeronave posicionada en puerta.', active: false },
@@ -541,13 +577,14 @@
   };
 
   function searchFlight(flightNo) {
-    const key = flightNo.trim().toUpperCase();
-    const f   = FLIGHTS[key];
-    const errEl = document.getElementById('sfError');
+    var key = flightNo.trim().toUpperCase();
+    var f   = TSData.ESTADO_VUELOS[key];
+    var errEl = document.getElementById('sfError');
 
     if (!f) {
       errEl.classList.add('show');
       document.getElementById('statusResult').hidden = true;
+      showToast('Vuelo no encontrado', 'error');
       return;
     }
     errEl.classList.remove('show');
@@ -571,18 +608,18 @@
     document.getElementById('sr-aircraft').textContent  = f.aircraft;
 
     // Progress bar (animate to value)
-    const progressEl = document.getElementById('sr-progress');
+    var progressEl = document.getElementById('sr-progress');
     progressEl.style.width = '0%';
-    setTimeout(() => { progressEl.style.width = f.progress + '%'; }, 100);
+    setTimeout(function() { progressEl.style.width = f.progress + '%'; }, 100);
 
     // Status badge
-    const badge = document.getElementById('sr-badge');
+    var badge = document.getElementById('sr-badge');
     badge.className = 'status-badge ' + (STATUS_CLASSES[f.status] || 'status-ontime');
-    badge.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">${ICONS[f.status] || ICONS.ontime}</svg><span>${f.statusText}</span>`;
+    badge.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[f.status] || ICONS.ontime) + '</svg><span>' + f.statusText + '</span>';
 
     // Delayed times
-    const newDepEl = document.getElementById('sr-newDep');
-    const newArrEl = document.getElementById('sr-newArr');
+    var newDepEl = document.getElementById('sr-newDep');
+    var newArrEl = document.getElementById('sr-newArr');
     if (f.status === 'delayed' && f.newDep) {
       document.getElementById('sr-dep').classList.add('delayed');
       newDepEl.textContent = f.newDep;
@@ -601,19 +638,21 @@
     }
 
     // Updates log
-    const updatesEl = document.getElementById('sr-updates');
-    const updates   = UPDATES[f.status] || UPDATES.ontime;
-    updatesEl.innerHTML = updates.map(u => `
-      <div class="update-item">
-        <div class="update-dot ${u.active ? 'active' : ''}"></div>
-        <div>
-          <div class="update-time">${u.time}</div>
-          <div class="update-msg">${u.msg}</div>
-        </div>
-      </div>`).join('');
+    var updatesEl = document.getElementById('sr-updates');
+    var updates   = UPDATES[f.status] || UPDATES.ontime;
+    updatesEl.innerHTML = updates.map(function(u) {
+      return '<div class="update-item">' +
+        '<div class="update-dot ' + (u.active ? 'active' : '') + '"></div>' +
+        '<div>' +
+          '<div class="update-time">' + u.time + '</div>' +
+          '<div class="update-msg">' + u.msg + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
 
     document.getElementById('statusResult').hidden = false;
     document.getElementById('statusResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    showToast('Vuelo ' + no + ' encontrado', 'success');
   }
 
   // ── Form submit ──
@@ -629,25 +668,26 @@
   };
 
   // ── Set today's date as default ──
-  const dateInput = document.getElementById('sf-date');
+  var dateInput = document.getElementById('sf-date');
   if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
 
   // ── Hamburger ──
-  const ham = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
+  var ham = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobileNav');
   if (ham) {
-    ham.addEventListener('click', () => {
-      const open = ham.classList.toggle('open');
+    ham.addEventListener('click', function() {
+      var open = ham.classList.toggle('open');
       ham.setAttribute('aria-expanded', open);
       mobileNav.hidden = !open;
     });
   }
 
   // ── Auto-search from URL ──
-  const p = new URLSearchParams(location.search);
+  var p = new URLSearchParams(location.search);
   if (p.get('vuelo')) searchFlight(p.get('vuelo'));
 })();
 </script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>

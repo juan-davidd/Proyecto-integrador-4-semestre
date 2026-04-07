@@ -135,140 +135,103 @@
   </div>
 </footer>
 
+<script src="js/mockData.js"></script>
+<script src="js/global.js"></script>
 <script src="js/main.js"></script>
 <script>
-  // ── Datos de vuelos demo ────────────────────────────────────────────────────
-  const BASE_FLIGHTS = [
-    { id: 1, code: 'AN1001', origin: 'BOG', dest: 'MDE', dep: '06:00', arr: '07:10', dur: '1h 10m', stops: 0, price: 185000,  cabin: 'Económica',      aircraft: 'Airbus A320', seats: 48, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 2, code: 'AN1005', origin: 'BOG', dest: 'MDE', dep: '12:30', arr: '13:40', dur: '1h 10m', stops: 0, price: 210000,  cabin: 'Económica Plus',  aircraft: 'Airbus A320', seats: 20, amenities: ['WiFi','Equipaje 23kg','Comida a bordo'] },
-    { id: 3, code: 'AN1009', origin: 'BOG', dest: 'CTG', dep: '08:00', arr: '09:20', dur: '1h 20m', stops: 0, price: 255000,  cabin: 'Económica',      aircraft: 'Boeing 737',  seats: 55, amenities: ['Equipaje 15kg'] },
-    { id: 4, code: 'AN1015', origin: 'BOG', dest: 'CLO', dep: '07:00', arr: '07:55', dur: '55m',    stops: 0, price: 180000,  cabin: 'Económica',      aircraft: 'Airbus A320', seats: 42, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 5, code: 'AN2001', origin: 'BOG', dest: 'MAD', dep: '23:45', arr: '15:20', dur: '10h 35m',stops: 0, price: 2890000, cabin: 'Económica',      aircraft: 'Boeing 787',  seats: 12, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 6, code: 'AN2005', origin: 'BOG', dest: 'MAD', dep: '22:00', arr: '12:30', dur: '9h 30m', stops: 1, price: 2600000, cabin: 'Económica',      aircraft: 'Airbus A350', seats: 28, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 7, code: 'AN2010', origin: 'BOG', dest: 'MAD', dep: '10:00', arr: '08:30', dur: '9h 30m', stops: 0, price: 5200000, cabin: 'Ejecutiva',      aircraft: 'Boeing 787',  seats: 6,  amenities: ['WiFi','Comida gourmet','Equipaje 32kg','Lounge VIP'] },
-    { id: 8, code: 'AN3001', origin: 'BOG', dest: 'BCN', dep: '23:00', arr: '16:30', dur: '10h 30m',stops: 1, price: 2870000, cabin: 'Económica',      aircraft: 'Airbus A350', seats: 18, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 9, code: 'AN4001', origin: 'BOG', dest: 'JFK', dep: '22:30', arr: '06:45', dur: '7h 15m', stops: 0, price: 2980000, cabin: 'Económica',      aircraft: 'Boeing 787',  seats: 22, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 10,code: 'AN4006', origin: 'BOG', dest: 'JFK', dep: '10:00', arr: '18:00', dur: '7h 00m', stops: 1, price: 2750000, cabin: 'Económica Plus', aircraft: 'Boeing 777',  seats: 10, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 11,code: 'AN5001', origin: 'BOG', dest: 'MIA', dep: '08:00', arr: '13:30', dur: '5h 30m', stops: 0, price: 1850000, cabin: 'Económica',      aircraft: 'Boeing 737',  seats: 30, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 12,code: 'AN5005', origin: 'BOG', dest: 'MIA', dep: '14:00', arr: '21:00', dur: '6h 00m', stops: 1, price: 1650000, cabin: 'Económica',      aircraft: 'Airbus A320', seats: 35, amenities: ['Equipaje 15kg'] },
-  ];
+  // ── Usa datos centralizados de TSData ──────────────────────────
+  var ALL_FLIGHTS = TSData.VUELOS;
 
-  const AIRPORT_NAMES = {
-    BOG: 'Bogotá (BOG)', MDE: 'Medellín (MDE)', CLO: 'Cali (CLO)',
-    CTG: 'Cartagena (CTG)', MAD: 'Madrid (MAD)', BCN: 'Barcelona (BCN)',
-    JFK: 'Nueva York (JFK)', MIA: 'Miami (MIA)',
-  };
+  function airportName(code) { return TSData.airportLabel(code); }
 
-  // ── Lee parámetros de la URL ─────────────────────────────────────────────
-  const params  = new URLSearchParams(window.location.search);
-  const pOrigen = (params.get('origen') || '').toUpperCase();
-  const pDest   = (params.get('destino') || '').toUpperCase();
-  const pClase  = params.get('clase') || '';
+  // ── Lee parámetros de la URL ──────────────────────────────────
+  var params  = new URLSearchParams(window.location.search);
+  var pOrigen = (params.get('origen') || '').toUpperCase();
+  var pDest   = (params.get('destino') || '').toUpperCase();
 
-  // ── Filtra vuelos que coincidan con la ruta buscada ───────────────────────
-  let filtered = BASE_FLIGHTS.filter(f => {
-    const matchRoute = (!pOrigen || f.origin === pOrigen) && (!pDest || f.dest === pDest);
-    return matchRoute;
+  var filtered = ALL_FLIGHTS.filter(function(f) {
+    return (!pOrigen || f.origin === pOrigen) && (!pDest || f.dest === pDest);
   });
-
-  // Si no hay ruta específica, muestra todos
-  if (!pOrigen && !pDest) filtered = [...BASE_FLIGHTS];
+  if (!pOrigen && !pDest) filtered = ALL_FLIGHTS.slice();
 
   // Titulos
-  const titleEl    = document.getElementById('resultsTitle');
-  const subtitleEl = document.getElementById('resultsSubtitle');
+  var titleEl    = document.getElementById('resultsTitle');
+  var subtitleEl = document.getElementById('resultsSubtitle');
   if (pOrigen && pDest) {
-    titleEl.textContent    = `Vuelos ${AIRPORT_NAMES[pOrigen] || pOrigen} → ${AIRPORT_NAMES[pDest] || pDest}`;
-    subtitleEl.textContent = `${filtered.length} vuelo(s) encontrado(s)`;
+    titleEl.textContent    = 'Vuelos ' + airportName(pOrigen) + ' → ' + airportName(pDest);
+    subtitleEl.textContent = filtered.length + ' vuelo(s) encontrado(s)';
   } else {
     titleEl.textContent    = 'Todos los vuelos disponibles';
-    subtitleEl.textContent = `${filtered.length} vuelos en total`;
+    subtitleEl.textContent = filtered.length + ' vuelos en total';
   }
 
-  // ── Render ───────────────────────────────────────────────────────────────
-  function formatPrice(p) {
-    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(p);
-  }
-
+  // ── Render ────────────────────────────────────────────────────
   function stopsLabel(n) {
     if (n === 0) return '<span style="color:#0B3D91;font-weight:600;">Directo</span>';
-    return `<span style="color:#f97316;font-weight:500;">${n} escala</span>`;
+    return '<span style="color:#f97316;font-weight:500;">' + n + ' escala</span>';
   }
 
-  function renderFlights(list) {
-    const container = document.getElementById('flightsList');
-    const noRes     = document.getElementById('noResults');
+  function renderSearchFlights(list) {
+    var container = document.getElementById('flightsList');
+    var noRes     = document.getElementById('noResults');
     container.innerHTML = '';
     if (!list.length) { noRes.style.display = 'block'; return; }
     noRes.style.display = 'none';
-    list.forEach(f => {
-      const amenPills = f.amenities.map(a =>
-        `<span class="amenity-pill">${a}</span>`
-      ).join('');
-      const card = document.createElement('article');
+    list.forEach(function(f) {
+      var amenPills = (f.amenities||[]).map(function(a) {
+        return '<span class="amenity-pill">' + a + '</span>';
+      }).join('');
+      var card = document.createElement('article');
       card.className = 'flight-card';
-      card.innerHTML = `
-        <div class="flight-card-top">
-          <div class="flight-route">
-            <div class="flight-airport">
-              <div class="code">${f.origin}</div>
-              <div class="time">${f.dep}</div>
-              <div class="city">${AIRPORT_NAMES[f.origin] || f.origin}</div>
-            </div>
-            <div class="flight-middle">
-              <div class="flight-duration">${f.dur}</div>
-              <div class="flight-line"></div>
-              <div class="flight-stops">${stopsLabel(f.stops)}</div>
-            </div>
-            <div class="flight-airport">
-              <div class="code">${f.dest}</div>
-              <div class="time">${f.arr}</div>
-              <div class="city">${AIRPORT_NAMES[f.dest] || f.dest}</div>
-            </div>
-          </div>
-          <div class="flight-price-wrap">
-            <div style="font-size:.7rem;color:#6b7280;margin-bottom:.1rem;">${f.cabin}</div>
-            <div class="flight-price">${formatPrice(f.price)}</div>
-            <div class="flight-price-sub">por persona</div>
-            <a href="reservar.html?vuelo=${f.code}" class="btn-book">Reservar →</a>
-          </div>
-        </div>
-        <div class="flight-amenities">${amenPills}</div>
-      `;
+      card.innerHTML =
+        '<div class="flight-card-top">' +
+          '<div class="flight-route">' +
+            '<div class="flight-airport"><div class="code">' + f.origin + '</div><div class="time">' + f.dep + '</div><div class="city">' + airportName(f.origin) + '</div></div>' +
+            '<div class="flight-middle"><div class="flight-duration">' + f.dur + '</div><div class="flight-line"></div><div class="flight-stops">' + stopsLabel(f.stops) + '</div></div>' +
+            '<div class="flight-airport"><div class="code">' + f.dest + '</div><div class="time">' + f.arr + '</div><div class="city">' + airportName(f.dest) + '</div></div>' +
+          '</div>' +
+          '<div class="flight-price-wrap">' +
+            '<div style="font-size:.7rem;color:#6b7280;margin-bottom:.1rem;">' + f.cabin + '</div>' +
+            '<div class="flight-price">' + TSData.formatCOP(f.price) + '</div>' +
+            '<div class="flight-price-sub">por persona</div>' +
+            '<a href="reservar.html?vuelo=' + f.code + '" class="btn-book">Reservar →</a>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flight-amenities">' + amenPills + '</div>';
       container.appendChild(card);
     });
   }
 
-  renderFlights(filtered);
+  renderSearchFlights(filtered);
 
-  // ── Filtros dinámicos ─────────────────────────────────────────────────────
-  const priceRange = document.getElementById('priceRange');
-  const priceVal   = document.getElementById('priceRangeVal');
+  // ── Filtros dinámicos ─────────────────────────────────────────
+  var priceRange = document.getElementById('priceRange');
+  var priceVal   = document.getElementById('priceRangeVal');
 
-  priceRange.addEventListener('input', () => {
-    const v = parseInt(priceRange.value);
-    priceVal.textContent = formatPrice(v);
+  priceRange.addEventListener('input', function() {
+    priceVal.textContent = TSData.formatCOP(parseInt(priceRange.value));
   });
 
   function applyFilters() {
-    const maxPrice = parseInt(priceRange.value);
-    const stops    = [...document.querySelectorAll('[name="stops"]:checked')].map(i => parseInt(i.value));
-    const cabins   = [...document.querySelectorAll('[name="cabin"]:checked')].map(i => i.value);
-    const result   = filtered.filter(f =>
-      f.price <= maxPrice &&
-      stops.includes(f.stops) &&
-      cabins.includes(f.cabin)
-    );
-    renderFlights(result);
+    var maxPrice = parseInt(priceRange.value);
+    var stops    = [].slice.call(document.querySelectorAll('[name="stops"]:checked')).map(function(i){ return parseInt(i.value); });
+    var cabins   = [].slice.call(document.querySelectorAll('[name="cabin"]:checked')).map(function(i){ return i.value; });
+    var result   = filtered.filter(function(f) {
+      return f.price <= maxPrice && stops.indexOf(f.stops) !== -1 && cabins.indexOf(f.cabin) !== -1;
+    });
+    renderSearchFlights(result);
+    showToast('Filtros aplicados · ' + result.length + ' vuelo(s)', 'info');
   }
 
   function resetFilters() {
     priceRange.value = priceRange.max;
-    priceVal.textContent = formatPrice(parseInt(priceRange.max));
-    document.querySelectorAll('[name="stops"],[name="cabin"]').forEach(i => i.checked = true);
-    renderFlights(filtered);
+    priceVal.textContent = TSData.formatCOP(parseInt(priceRange.max));
+    document.querySelectorAll('[name="stops"],[name="cabin"]').forEach(function(i){ i.checked = true; });
+    renderSearchFlights(filtered);
+    showToast('Filtros restablecidos', 'info');
   }
 </script>
 <script src="js/brand.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@ const state = {
   tripType:   'ida-vuelta',
   originCode: null,
   destCode:   null,
-  passengers: { adults: 1, teens: 0, children: 0, infants: 0 },
+  passengers: { count: 1 },
   cabinClass: 'Económica',
 };
 
@@ -201,18 +201,16 @@ setupAirportInput('destInput',   'destDropdown',   'destCode');
   if (!trigger || !panel) return;
 
   function updateLabel() {
-    const p       = state.passengers;
-    const adultos = p.adults === 1 ? '1 adulto' : `${p.adults} adultos`;
-    if (label) label.textContent = `${adultos} · ${state.cabinClass}`;
+    const n = state.passengers.count;
+    const pass = n === 1 ? '1 pasajero' : `${n} pasajeros`;
+    if (label) label.textContent = `${pass} · ${state.cabinClass}`;
   }
 
   function renderCounters() {
-    ['adults', 'teens', 'children', 'infants'].forEach(type => {
-      const valEl  = document.getElementById(`${type}Val`);
-      if (valEl) valEl.textContent = state.passengers[type];
-      const decBtn = qs(`[data-type="${type}"][data-action="dec"]`);
-      if (decBtn) decBtn.disabled = (type === 'adults' ? state.passengers[type] <= 1 : state.passengers[type] <= 0);
-    });
+    const valEl  = document.getElementById('passengersVal');
+    if (valEl) valEl.textContent = state.passengers.count;
+    const decBtn = qs('[data-type="passengers"][data-action="dec"]');
+    if (decBtn) decBtn.disabled = state.passengers.count <= 1;
   }
 
   trigger.addEventListener('click', e => {
@@ -226,11 +224,10 @@ setupAirportInput('destInput',   'destDropdown',   'destCode');
   panel.addEventListener('click', e => {
     const btn = e.target.closest('[data-action]');
     if (!btn) return;
-    const { type, action } = btn.dataset;
-    const min = (type === 'adults') ? 1 : 0;
-    state.passengers[type] = action === 'inc'
-      ? state.passengers[type] + 1
-      : Math.max(min, state.passengers[type] - 1);
+    const { action } = btn.dataset;
+    state.passengers.count = action === 'inc'
+      ? state.passengers.count + 1
+      : Math.max(1, state.passengers.count - 1);
     renderCounters();
     updateLabel();
   });
@@ -296,10 +293,7 @@ setupAirportInput('destInput',   'destDropdown',   'destCode');
       fechaIda:    departInp?.value   || '',
       fechaVuelta: returnInp?.value   || '',
       clase:       state.cabinClass,
-      adultos:     state.passengers.adults,
-      jovenes:     state.passengers.teens,
-      ninos:       state.passengers.children,
-      bebes:       state.passengers.infants,
+      pasajeros:   state.passengers.count,
     });
 
     window.location.href = `resultados.html?${params.toString()}`;
@@ -318,5 +312,84 @@ document.addEventListener('DOMContentLoaded', () => {
     returnInp.min = today;
     if (!returnInp.value) returnInp.value = vuelta;
   }
+
+  // ── Catálogo comercial unificado ──
+  initCatalogo();
 });
 
+// ── Catálogo: renderizado y filtrado ─────────────────────────────────────────
+function initCatalogo() {
+  const grid = document.getElementById('catalogoGrid');
+  if (!grid || typeof TSData === 'undefined') return;
+
+  const tabs = qsa('.catalogo-tab');
+  let currentFilter = 'todos';
+
+  function formatCOP(n) {
+    try { return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n); }
+    catch (e) { return 'COP ' + String(n); }
+  }
+
+  function renderCard(item) {
+    const href = `resultados.html?origen=${item.origen}&destino=${item.destino}`;
+    const badgeClass = item.tipo_badge === 'Internacional' ? 'cat-badge-intl' : 'cat-badge-nacl';
+    const tipoLabel = item.tipo === 'oferta' ? 'Oferta' : item.tipo === 'paquete' ? 'Paquete' : 'Destino';
+    const colorAttr = item.color ? ` data-color="${item.color}"` : '';
+
+    let badges = `<span class="cat-badge cat-badge-tipo">${tipoLabel}</span>`;
+    if (item.tipo_badge) badges += `<span class="cat-badge ${badgeClass}">${item.tipo_badge}</span>`;
+    if (item.descuento) badges += `<span class="cat-badge cat-badge-desc">-${item.descuento}%</span>`;
+
+    let stars = '';
+    if (item.estrellas) stars = `<div class="cat-stars">${'★'.repeat(item.estrellas)}${'☆'.repeat(5 - item.estrellas)}</div>`;
+
+    let includesHtml = '';
+    if (item.incluye && item.incluye.length) {
+      includesHtml = '<ul class="cat-includes">' + item.incluye.map(i =>
+        `<li><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>${i}</li>`
+      ).join('') + '</ul>';
+    }
+
+    let pricingHtml = '';
+    if (item.precioOriginal) {
+      pricingHtml = `<div class="cat-pricing"><span class="cat-price">${formatCOP(item.precio)}</span><span class="cat-original">${formatCOP(item.precioOriginal)}</span></div>`;
+    } else {
+      pricingHtml = `<div class="cat-pricing"><span class="cat-desde">desde</span><span class="cat-price">${formatCOP(item.precio)}</span></div>`;
+    }
+
+    let descHtml = item.descripcion ? `<p class="cat-desc">${item.descripcion}</p>` : '';
+
+    return `<a href="${href}" class="cat-card"${colorAttr}>
+      <div class="cat-card-img">
+        <img src="${item.imagen}" alt="${item.titulo}" loading="lazy" />
+        <div class="cat-overlay"></div>
+        <div class="cat-badges">${badges}</div>
+        ${stars}
+      </div>
+      <div class="cat-card-body">
+        <h3>${item.titulo}</h3>
+        <div class="cat-sub">${item.subtitulo || ''}</div>
+        ${descHtml}
+        ${includesHtml}
+        ${pricingHtml}
+      </div>
+    </a>`;
+  }
+
+  function render(filter) {
+    const items = TSData.getCatalogo(filter);
+    grid.innerHTML = items.map(renderCard).join('');
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      currentFilter = tab.dataset.filter;
+      render(currentFilter);
+    });
+  });
+
+  render(currentFilter);
+}
