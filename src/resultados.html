@@ -192,7 +192,7 @@
           '</div>' +
           '<div class="flight-price-wrap">' +
             '<div style="font-size:.7rem;color:#6b7280;margin-bottom:.1rem;">' + f.cabin + '</div>' +
-            '<div class="flight-price">' + TSData.formatCOP(f.price) + '</div>' +
+            (f.promo ? '<div class="flight-promo-tag">-40% OFERTA FLASH</div><div class="flight-price promo-price">' + TSData.formatCOP(f.price) + '</div><div class="flight-price-original">' + TSData.formatCOP(f.priceOriginal) + '</div>' : '<div class="flight-price">' + TSData.formatCOP(f.price) + '</div>') +
             '<div class="flight-price-sub">por persona</div>' +
             '<a href="reservar.html?vuelo=' + f.code + '" class="btn-book">Reservar →</a>' +
           '</div>' +

@@ -317,6 +317,34 @@
     }
     .booking-nav .btn { min-width: 120px; }
 
+    /* Tarifa selection */
+    .tarifa-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .9rem; margin-top: .5rem; }
+    @media (max-width: 640px) { .tarifa-grid { grid-template-columns: 1fr; } }
+    .tarifa-card {
+      border: 2px solid var(--col-gray-200);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1rem;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+      position: relative;
+    }
+    .tarifa-card:hover { border-color: var(--col-primary); }
+    .tarifa-card.selected { border-color: var(--col-primary); box-shadow: 0 0 0 3px rgba(11,61,145,.1); }
+    .tarifa-popular { background: linear-gradient(135deg,rgba(11,61,145,.03),rgba(11,61,145,.07)); }
+    .tarifa-badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: var(--col-primary); color: #fff;
+      font-size: .6rem; font-weight: 700; letter-spacing: .04em;
+      padding: .18rem .55rem; border-radius: 20px; white-space: nowrap;
+    }
+    .tarifa-name { font-size: 1rem; font-weight: 700; color: var(--col-gray-900); margin: .6rem 0 .15rem; }
+    .tarifa-price-lbl { font-size: .62rem; color: var(--col-gray-400); text-transform: uppercase; letter-spacing: .05em; }
+    .tarifa-price { font-size: 1rem; font-weight: 800; color: var(--col-primary); margin-bottom: .8rem; }
+    .tarifa-feats { list-style: none; padding: 0; margin: 0; }
+    .tarifa-feats li { font-size: .73rem; color: var(--col-gray-600); padding: .18rem 0; display: flex; gap: .4rem; align-items: flex-start; }
+    .feat-y::before { content: '✓'; color: #22c55e; font-weight: 800; flex-shrink: 0; }
+    .feat-n::before { content: '✗'; color: #d1d5db; font-weight: 700; flex-shrink: 0; }
+
     /* Steps hidden */
     .step-pane { display: none; }
     .step-pane.active { display: block; }
@@ -410,6 +438,55 @@
 
         <!-- ═══ STEP 0 – Pasajeros ═══ -->
         <div class="step-pane active" id="pane0">
+
+          <!-- Selección de tarifa -->
+          <div class="booking-card">
+            <div class="booking-card-head">
+              <div class="booking-card-icon icon-blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <div>
+                <h3>Selecciona tu tarifa</h3>
+                <p>Elige el tipo de servicio que mejor se adapte a tu viaje</p>
+              </div>
+            </div>
+            <div class="tarifa-grid" id="tarifaGrid">
+              <div class="tarifa-card" data-tarifa="basica" data-mult="1" onclick="selectTarifa(this)">
+                <div class="tarifa-name">Básica</div>
+                <div class="tarifa-price-lbl">Desde</div>
+                <div class="tarifa-price" id="tp-basica">—</div>
+                <ul class="tarifa-feats">
+                  <li class="feat-y">Equipaje de mano (10 kg)</li>
+                  <li class="feat-n">Equipaje en bodega</li>
+                  <li class="feat-n">Cambio de vuelo</li>
+                  <li class="feat-n">Reembolso</li>
+                </ul>
+              </div>
+              <div class="tarifa-card tarifa-popular selected" data-tarifa="estandar" data-mult="1.3" onclick="selectTarifa(this)">
+                <div class="tarifa-badge">Más popular</div>
+                <div class="tarifa-name">Estándar</div>
+                <div class="tarifa-price-lbl">Desde</div>
+                <div class="tarifa-price" id="tp-estandar">—</div>
+                <ul class="tarifa-feats">
+                  <li class="feat-y">Equipaje de mano (10 kg)</li>
+                  <li class="feat-y">Equipaje en bodega (23 kg)</li>
+                  <li class="feat-y">Cambio de vuelo (+penalización)</li>
+                  <li class="feat-n">Reembolso</li>
+                </ul>
+              </div>
+              <div class="tarifa-card" data-tarifa="flex" data-mult="1.7" onclick="selectTarifa(this)">
+                <div class="tarifa-name">Flex</div>
+                <div class="tarifa-price-lbl">Desde</div>
+                <div class="tarifa-price" id="tp-flex">—</div>
+                <ul class="tarifa-feats">
+                  <li class="feat-y">Equipaje de mano (10 kg)</li>
+                  <li class="feat-y">Equipaje en bodega (23 kg)</li>
+                  <li class="feat-y">Cambio de vuelo (gratis)</li>
+                  <li class="feat-y">Reembolso total</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
           <!-- Selección de pasajeros -->
           <div class="booking-card">
@@ -665,9 +742,17 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
             <span id="sb-cabin">Clase Económica</span>
           </div>
+          <div class="sflight-detail">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            <span id="sb-tarifa">Tarifa Estándar</span>
+          </div>
 
           <hr class="sflight-divider" />
 
+          <div class="sflight-price-row" id="sb-promo-row" style="display:none">
+            <span id="sb-promoTag" style="font-size:.65rem;font-weight:800;background:#e05c00;color:#fff;padding:.1rem .4rem;border-radius:4px;">-40% OFERTA FLASH</span>
+            <span id="sb-priceOriginal" style="font-size:.8rem;color:#9ca3af;text-decoration:line-through;"></span>
+          </div>
           <div class="sflight-price-row">
             <span id="sb-passLabel">1 adulto</span>
             <span id="sb-basePrice">COP 850.000</span>
@@ -784,12 +869,14 @@
     passengers: { count: 1 },
     selectedSeats: [],
     form: {},
-    flightData: null
+    flightData: null,
+    tarifa: 'estandar',
+    tarifaMult: 1.3
   };
 
   var SEAT_ROWS = 10;
-  var COLUMNS = ['A','B','C','D','E','F'];
-  var OCCUPIED = ['1A','1C','2B','2F','3D','4A','4E','5C','6B','6F','7A','8D'];
+  var COLUMNS = ['A','B','C','D'];
+  var OCCUPIED = ['1A','2B','2D','3C','4A','5B','5D','6A','7C','8D'];
   var BUSINESS_ROWS = [1, 2];
 
   // Read URL params – use TSData if vuelo code is provided
@@ -812,17 +899,19 @@
       aircraft = flight.aircraft;
     } else {
       origin  = p.get('origin') || 'BOG';
-      dest    = p.get('dest')   || 'MAD';
+      dest    = p.get('dest')   || 'MDE';
       dep     = p.get('dep')    || '15 Mar 2026';
       cabin   = p.get('cabin')  || 'Económica';
       adults  = parseInt(p.get('adults') || '1', 10);
-      price   = 850000;
-      dur     = '11h 45min';
+      price   = 126000;
+      dur     = '1h 10m';
       stops   = 0;
-      aircraft = 'A330-200';
+      aircraft = 'Airbus A320';
     }
 
-    state.basePrice = price;
+    state.basePriceRaw = price;
+    state.basePrice = Math.round(price * state.tarifaMult);
+    state.priceOriginal = (flight && flight.promo) ? flight.priceOriginal : null;
     state.origin = origin;
     state.dest = dest;
     state.dep = dep;
@@ -844,7 +933,30 @@
     document.getElementById('val-passengers').textContent = state.passengers.count;
     updateDecBtn('passengers', 1);
     updateSidebar();
+    updateTarifaPrices();
   }
+
+  // ── Tarifa selection ──
+  function updateTarifaPrices() {
+    var raw = state.basePriceRaw || state.basePrice;
+    var mults = { basica: 1, estandar: 1.3, flex: 1.7 };
+    Object.keys(mults).forEach(function(t) {
+      var el = document.getElementById('tp-' + t);
+      if (el) el.textContent = TSData.formatCOP(Math.round(raw * mults[t]));
+    });
+  }
+
+  window.selectTarifa = function(el) {
+    document.querySelectorAll('.tarifa-card').forEach(function(c) { c.classList.remove('selected'); });
+    el.classList.add('selected');
+    state.tarifa = el.dataset.tarifa;
+    state.tarifaMult = parseFloat(el.dataset.mult);
+    state.basePrice = Math.round((state.basePriceRaw || state.basePrice / (state.tarifaMult || 1.3)) * state.tarifaMult);
+    var tarifaNames = { basica: 'Básica', estandar: 'Estándar', flex: 'Flex' };
+    var tbEl = document.getElementById('sb-tarifa');
+    if (tbEl) tbEl.textContent = 'Tarifa ' + (tarifaNames[state.tarifa] || 'Estándar');
+    updateSidebar();
+  };
 
   // ── Passenger counters ──
   window.changePass = function (type, delta) {
@@ -864,6 +976,9 @@
   }
 
   function updateSidebar() {
+    var tarifaNames = { basica: 'Básica', estandar: 'Estándar', flex: 'Flex' };
+    var tbEl = document.getElementById('sb-tarifa');
+    if (tbEl) tbEl.textContent = 'Tarifa ' + (tarifaNames[state.tarifa] || 'Estándar');
     var base = state.basePrice || 850000;
     var taxRate = 0.179;
     var taxes = Math.round(base * taxRate);
@@ -871,6 +986,13 @@
     var fmt = function(v){ return TSData.formatCOP(v); };
     document.getElementById('sb-passLabel').textContent = n + ' pasajero' + (n !== 1 ? 's' : '');
     document.getElementById('sb-basePrice').textContent = fmt(base * n);
+    var promoRow = document.getElementById('sb-promo-row');
+    if (state.priceOriginal) {
+      promoRow.style.display = '';
+      document.getElementById('sb-priceOriginal').textContent = fmt(state.priceOriginal * n);
+    } else {
+      promoRow.style.display = 'none';
+    }
     document.getElementById('sb-taxes').textContent    = fmt(taxes * n);
     state.totalPrice = (base * n) + (taxes * n);
     state.taxes = taxes * n;
@@ -973,7 +1095,7 @@
       lbl.className = 'seat-col-lbl';
       lbl.textContent = col;
       headerRow.appendChild(lbl);
-      if (i === 2) {
+      if (i === 1) {
         var aisle = document.createElement('div');
         aisle.className = 'seat-aisle';
         headerRow.appendChild(aisle);
@@ -1005,6 +1127,7 @@
           } else if (state.selectedSeats.indexOf(seatId) !== -1) {
             btn.className += ' seat-selected';
             btn.textContent = seatId;
+            btn.addEventListener('click', function(){ toggleSeat(seatId); });
           } else if (BUSINESS_ROWS.indexOf(rowNum) !== -1) {
             btn.className += ' seat-business';
             btn.textContent = seatId;
@@ -1017,7 +1140,7 @@
 
           row.appendChild(btn);
 
-          if (i === 2) {
+          if (i === 1) {
             var aisle = document.createElement('div');
             aisle.className = 'seat-aisle';
             row.appendChild(aisle);

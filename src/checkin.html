@@ -233,6 +233,26 @@
       cursor: pointer;
       text-decoration: underline;
     }
+
+    /* Security declaration */
+    .security-declaration {
+      background: rgba(239,246,255,.7);
+      border: 1px solid rgba(59,130,246,.2);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .security-declaration h4 {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+      color: var(--col-gray-600); margin-bottom: .65rem; display: flex; align-items: center; gap: .4rem;
+    }
+    .sec-check-label {
+      display: flex; gap: .6rem; align-items: flex-start;
+      margin-bottom: .55rem; cursor: pointer;
+    }
+    .sec-check-label:last-child { margin-bottom: 0; }
+    .sec-checkbox { margin-top: .15rem; flex-shrink: 0; accent-color: var(--col-primary); width: 15px; height: 15px; cursor: pointer; }
+    .sec-check-label span { font-size: .78rem; color: var(--col-gray-700); line-height: 1.45; }
   </style>
 </head>
 <body>
@@ -400,6 +420,26 @@
           <div class="form-group">
             <label for="ci-email">Correo para tarjeta de embarque *</label>
             <input id="ci-email" class="form-input" type="email" placeholder="correo@email.com" />
+          </div>
+
+          <!-- Declaración de seguridad -->
+          <div class="security-declaration">
+            <h4>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Declaración de seguridad
+            </h4>
+            <label class="sec-check-label">
+              <input type="checkbox" id="ci-sec1" class="sec-checkbox" />
+              <span>No porto armas, explosivos ni sustancias peligrosas en mi equipaje de mano ni en bodega.</span>
+            </label>
+            <label class="sec-check-label">
+              <input type="checkbox" id="ci-sec2" class="sec-checkbox" />
+              <span>Mis líquidos cumplen la restricción de 100 ml máx. por recipiente en bolsa transparent cerrada.</span>
+            </label>
+            <label class="sec-check-label">
+              <input type="checkbox" id="ci-sec3" class="sec-checkbox" />
+              <span>Acepto los términos y condiciones de viaje de Terra Sky Aerolínea.</span>
+            </label>
           </div>
 
           <div id="ciPassErr" class="ci-error"></div>
@@ -631,6 +671,14 @@
       errEl.textContent = 'Ingresa un correo electrónico válido.';
       errEl.classList.add('show');
       document.getElementById('ci-email').classList.add('error');
+      return;
+    }
+    var sec1 = document.getElementById('ci-sec1').checked;
+    var sec2 = document.getElementById('ci-sec2').checked;
+    var sec3 = document.getElementById('ci-sec3').checked;
+    if (!sec1 || !sec2 || !sec3) {
+      errEl.textContent = 'Debes aceptar todas las declaraciones de seguridad para continuar.';
+      errEl.classList.add('show');
       return;
     }
     errEl.classList.remove('show');

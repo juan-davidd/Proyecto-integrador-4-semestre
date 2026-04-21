@@ -323,7 +323,7 @@ function initCatalogo() {
   if (!grid || typeof TSData === 'undefined') return;
 
   const tabs = qsa('.catalogo-tab');
-  let currentFilter = 'todos';
+  let currentFilter = 'oferta';
 
   function formatCOP(n) {
     try { return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n); }

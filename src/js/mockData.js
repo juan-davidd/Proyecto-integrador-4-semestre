@@ -39,22 +39,24 @@
      VUELOS BASE
      ════════════════════════════════════════════════════════════ */
   var VUELOS_BASE = [
-    { id: 1,  code: 'AN1001', origin: 'BOG', dest: 'MDE', dep: '06:00', arr: '07:10', dur: '1h 10m',  stops: 0, price: 185000,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 48, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 2,  code: 'AN1005', origin: 'BOG', dest: 'MDE', dep: '12:30', arr: '13:40', dur: '1h 10m',  stops: 0, price: 210000,  cabin: 'Económica Plus', aircraft: 'Airbus A320',  seats: 20, amenities: ['WiFi','Equipaje 23kg','Comida a bordo'] },
-    { id: 3,  code: 'AN1009', origin: 'BOG', dest: 'CTG', dep: '08:00', arr: '09:20', dur: '1h 20m',  stops: 0, price: 255000,  cabin: 'Económica',      aircraft: 'Boeing 737',   seats: 55, amenities: ['Equipaje 15kg'] },
-    { id: 4,  code: 'AN1015', origin: 'BOG', dest: 'CLO', dep: '07:00', arr: '07:55', dur: '55m',     stops: 0, price: 180000,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 42, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 5,  code: 'AN2001', origin: 'BOG', dest: 'MAD', dep: '23:45', arr: '15:20', dur: '10h 35m', stops: 0, price: 2890000, cabin: 'Económica',      aircraft: 'Boeing 787',   seats: 12, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 6,  code: 'AN2005', origin: 'BOG', dest: 'MAD', dep: '22:00', arr: '12:30', dur: '9h 30m',  stops: 1, price: 2600000, cabin: 'Económica',      aircraft: 'Airbus A350',  seats: 28, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 7,  code: 'AN2010', origin: 'BOG', dest: 'MAD', dep: '10:00', arr: '08:30', dur: '9h 30m',  stops: 0, price: 5200000, cabin: 'Ejecutiva',      aircraft: 'Boeing 787',   seats: 6,  amenities: ['WiFi','Comida gourmet','Equipaje 32kg','Lounge VIP'] },
-    { id: 8,  code: 'AN3001', origin: 'BOG', dest: 'BCN', dep: '23:00', arr: '16:30', dur: '10h 30m', stops: 1, price: 2870000, cabin: 'Económica',      aircraft: 'Airbus A350',  seats: 18, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 9,  code: 'AN4001', origin: 'BOG', dest: 'JFK', dep: '22:30', arr: '06:45', dur: '7h 15m',  stops: 0, price: 2980000, cabin: 'Económica',      aircraft: 'Boeing 787',   seats: 22, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 10, code: 'AN4006', origin: 'BOG', dest: 'JFK', dep: '10:00', arr: '18:00', dur: '7h 00m',  stops: 1, price: 2750000, cabin: 'Económica Plus', aircraft: 'Boeing 777',   seats: 10, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 11, code: 'AN5001', origin: 'BOG', dest: 'MIA', dep: '08:00', arr: '13:30', dur: '5h 30m',  stops: 0, price: 1850000, cabin: 'Económica',      aircraft: 'Boeing 737',   seats: 30, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 12, code: 'AN5005', origin: 'BOG', dest: 'MIA', dep: '14:00', arr: '21:00', dur: '6h 00m',  stops: 1, price: 1650000, cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 35, amenities: ['Equipaje 15kg'] },
-    { id: 13, code: 'AN6001', origin: 'MDE', dest: 'BOG', dep: '15:00', arr: '16:10', dur: '1h 10m',  stops: 0, price: 195000,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 38, amenities: ['WiFi','Equipaje 23kg'] },
-    { id: 14, code: 'AN6010', origin: 'CTG', dest: 'BOG', dep: '17:30', arr: '18:50', dur: '1h 20m',  stops: 0, price: 245000,  cabin: 'Económica',      aircraft: 'Boeing 737',   seats: 50, amenities: ['Equipaje 15kg'] },
-    { id: 15, code: 'AN7001', origin: 'BOG', dest: 'CDG', dep: '21:00', arr: '14:30', dur: '11h 30m', stops: 0, price: 3250000, cabin: 'Económica',      aircraft: 'Airbus A350',  seats: 15, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
-    { id: 16, code: 'AN8001', origin: 'BOG', dest: 'LIM', dep: '09:30', arr: '12:15', dur: '2h 45m',  stops: 0, price: 680000,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 40, amenities: ['WiFi','Equipaje 23kg'] }
+    { id: 1,  code: 'AN1001', origin: 'BOG', dest: 'MDE', dep: '06:00', arr: '07:10', dur: '1h 10m',  stops: 0, price: 111000,  priceOriginal: 185000,  promo: true,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 48, amenities: ['WiFi','Equipaje 23kg'] },
+    { id: 2,  code: 'AN1005', origin: 'BOG', dest: 'MDE', dep: '12:30', arr: '13:40', dur: '1h 10m',  stops: 0, price: 126000,  priceOriginal: 210000,  promo: true,  cabin: 'Económica Plus', aircraft: 'Airbus A320',  seats: 20, amenities: ['WiFi','Equipaje 23kg','Comida a bordo'] },
+    { id: 3,  code: 'AN1009', origin: 'BOG', dest: 'CTG', dep: '08:00', arr: '09:20', dur: '1h 20m',  stops: 0, price: 153000,  priceOriginal: 255000,  promo: true,  cabin: 'Económica',      aircraft: 'Boeing 737',   seats: 55, amenities: ['Equipaje 15kg'] },
+    { id: 4,  code: 'AN1015', origin: 'BOG', dest: 'CLO', dep: '07:00', arr: '07:55', dur: '55m',     stops: 0, price: 108000,  priceOriginal: 180000,  promo: true,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 42, amenities: ['WiFi','Equipaje 23kg'] },
+    { id: 5,  code: 'AN2001', origin: 'BOG', dest: 'MAD', dep: '23:45', arr: '15:20', dur: '10h 35m', stops: 0, price: 2890000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Boeing 787',   seats: 12, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
+    { id: 6,  code: 'AN2005', origin: 'BOG', dest: 'MAD', dep: '22:00', arr: '12:30', dur: '9h 30m',  stops: 1, price: 2600000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Airbus A350',  seats: 28, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
+    { id: 7,  code: 'AN2010', origin: 'BOG', dest: 'MAD', dep: '10:00', arr: '08:30', dur: '9h 30m',  stops: 0, price: 5200000, priceOriginal: null,    promo: false, cabin: 'Ejecutiva',      aircraft: 'Boeing 787',   seats: 6,  amenities: ['WiFi','Comida gourmet','Equipaje 32kg','Lounge VIP'] },
+    { id: 8,  code: 'AN3001', origin: 'BOG', dest: 'BCN', dep: '23:00', arr: '16:30', dur: '10h 30m', stops: 1, price: 2870000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Airbus A350',  seats: 18, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
+    { id: 9,  code: 'AN4001', origin: 'BOG', dest: 'JFK', dep: '22:30', arr: '06:45', dur: '7h 15m',  stops: 0, price: 2980000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Boeing 787',   seats: 22, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
+    { id: 10, code: 'AN4006', origin: 'BOG', dest: 'JFK', dep: '10:00', arr: '18:00', dur: '7h 00m',  stops: 1, price: 2750000, priceOriginal: null,    promo: false, cabin: 'Económica Plus', aircraft: 'Boeing 777',   seats: 10, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
+    { id: 11, code: 'AN5001', origin: 'BOG', dest: 'MIA', dep: '08:00', arr: '13:30', dur: '5h 30m',  stops: 0, price: 1850000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Boeing 737',   seats: 30, amenities: ['WiFi','Equipaje 23kg'] },
+    { id: 12, code: 'AN5005', origin: 'BOG', dest: 'MIA', dep: '14:00', arr: '21:00', dur: '6h 00m',  stops: 1, price: 1650000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 35, amenities: ['Equipaje 15kg'] },
+    { id: 13, code: 'AN6001', origin: 'MDE', dest: 'BOG', dep: '15:00', arr: '16:10', dur: '1h 10m',  stops: 0, price: 117000,  priceOriginal: 195000,  promo: true,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 38, amenities: ['WiFi','Equipaje 23kg'] },
+    { id: 14, code: 'AN6010', origin: 'CTG', dest: 'BOG', dep: '17:30', arr: '18:50', dur: '1h 20m',  stops: 0, price: 147000,  priceOriginal: 245000,  promo: true,  cabin: 'Económica',      aircraft: 'Boeing 737',   seats: 50, amenities: ['Equipaje 15kg'] },
+    { id: 15, code: 'AN7001', origin: 'BOG', dest: 'CDG', dep: '21:00', arr: '14:30', dur: '11h 30m', stops: 0, price: 3250000, priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Airbus A350',  seats: 15, amenities: ['WiFi','Comida a bordo','Equipaje 23kg'] },
+    { id: 16, code: 'AN8001', origin: 'BOG', dest: 'LIM', dep: '09:30', arr: '12:15', dur: '2h 45m',  stops: 0, price: 680000,  priceOriginal: null,    promo: false, cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 40, amenities: ['WiFi','Equipaje 23kg'] },
+    { id: 17, code: 'AN1020', origin: 'BOG', dest: 'SMR', dep: '09:00', arr: '10:35', dur: '1h 35m',  stops: 0, price: 100800, priceOriginal: 168000, promo: true,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 45, amenities: ['WiFi','Equipaje 23kg'] },
+    { id: 18, code: 'AN1025', origin: 'BOG', dest: 'PEI', dep: '11:00', arr: '12:10', dur: '1h 10m',  stops: 0, price: 72000,  priceOriginal: 120000, promo: true,  cabin: 'Económica',      aircraft: 'Airbus A320',  seats: 40, amenities: ['WiFi','Equipaje 23kg'] }
   ];
 
   /* ════════════════════════════════════════════════════════════
@@ -63,7 +65,7 @@
   var ESTADO_VUELOS = {
     'TS-152':  { origin:'BOG', dest:'MAD', originCity:'Bogotá',    destCity:'Madrid',     dep:'22:30', arr:'14:15', duration:'11h 45min', status:'ontime',   statusText:'A tiempo',        progress:0,   terminal:'T1', gate:'B12', boarding:'21:45', aircraft:'A330-200', date:'15 Mar 2026', planePos:'En tierra · En preparación' },
     'TS-241':  { origin:'MDE', dest:'BCN', originCity:'Medellín',  destCity:'Barcelona',  dep:'14:10', arr:'08:30', duration:'12h 20min', status:'boarding', statusText:'Embarcando',       progress:5,   terminal:'T2', gate:'A05', boarding:'13:30', aircraft:'B787-9',   date:'22 Mar 2026', planePos:'Embarque en progreso' },
-    'TS-378':  { origin:'CLO', dest:'JFK', originCity:'Cali',      destCity:'Nueva York', dep:'09:45', arr:'19:20', duration:'9h 35min',  status:'delayed',  statusText:'Demorado 25min',  progress:0,   terminal:'T1', gate:'C21', boarding:'10:05', aircraft:'B737-MAX', date:'28 Mar 2026', planePos:'En tierra · Demorado por clima', newDep:'10:10', newArr:'19:45' },
+    'TS-378':  { origin:'CLO', dest:'JFK', originCity:'Cali',      destCity:'New York', dep:'09:45', arr:'19:20', duration:'9h 35min',  status:'delayed',  statusText:'Demorado 25min',  progress:0,   terminal:'T1', gate:'C21', boarding:'10:05', aircraft:'B737-MAX', date:'28 Mar 2026', planePos:'En tierra · Demorado por clima', newDep:'10:10', newArr:'19:45' },
     'TS-090':  { origin:'BOG', dest:'MDE', originCity:'Bogotá',    destCity:'Medellín',   dep:'06:15', arr:'07:05', duration:'50min',     status:'arrived',  statusText:'Aterrizó',        progress:100, terminal:'T1', gate:'D03', boarding:'05:45', aircraft:'A320neo',  date:'Hoy',         planePos:'Aterrizó a las 07:02' },
     'TS-305':  { origin:'CTG', dest:'BOG', originCity:'Cartagena', destCity:'Bogotá',     dep:'11:30', arr:'12:20', duration:'50min',     status:'ontime',   statusText:'A tiempo',        progress:0,   terminal:'T1', gate:'E08', boarding:'11:00', aircraft:'A320neo',  date:'Hoy',         planePos:'En tierra · Abordará pronto' },
     'TS-412':  { origin:'BOG', dest:'MIA', originCity:'Bogotá',    destCity:'Miami',      dep:'15:55', arr:'20:45', duration:'4h 50min',  status:'ontime',   statusText:'A tiempo',        progress:0,   terminal:'T1', gate:'F14', boarding:'15:20', aircraft:'B737-MAX', date:'Hoy',         planePos:'En tierra · En preparación' }
@@ -113,7 +115,7 @@
       firstName: 'Andrés Felipe', lastName: 'Martínez',
       email: 'andres.martinez@email.com', phone: '+57 305 789 0123',
       docType: 'Pasaporte', docNumber: 'AZ123456',
-      origin: 'CLO', dest: 'JFK', originCity: 'Cali', destCity: 'Nueva York',
+      origin: 'CLO', dest: 'JFK', originCity: 'Cali', destCity: 'New York',
       dep: '09:45', arr: '19:20', date: '28 Mar 2026', dateShort: '28 MAR',
       duration: '9h 35min', stops: 'Directo',
       cabin: 'Económica', seat: '28B', gate: 'C21',
@@ -233,19 +235,9 @@
   var CATALOGO_COMERCIAL = [
     // ── OFERTAS (descuentos directos en vuelos) ──
     {
-      id: 'of-01', tipo: 'oferta', destacado: true, orden: 1,
-      titulo: 'Vuelos nacionales', subtitulo: 'Bogotá · Medellín · Cali',
-      descripcion: 'Tarifas especiales en rutas nacionales con equipaje incluido.',
-      etiqueta: 'Oferta especial',
-      precio: 89000, precioOriginal: null, descuento: null,
-      origen: 'BOG', destino: 'MDE',
-      imagen: 'https://images.unsplash.com/photo-1640768239887-77479f49a7dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800',
-      color: 'verde', tipo_badge: 'Nacional',
-      incluye: null, estrellas: null, vigencia: '2026-06-30'
-    },
-    {
+
       id: 'of-02', tipo: 'oferta', destacado: true, orden: 2,
-      titulo: 'Nueva York – JFK', subtitulo: 'Clase ejecutiva disponible',
+      titulo: 'New York', subtitulo: 'Clase ejecutiva disponible',
       descripcion: 'Vuela en temporada alta con las mejores tarifas internacionales.',
       etiqueta: 'Temporada alta',
       precio: 4980000, precioOriginal: null, descuento: null,
@@ -256,10 +248,10 @@
     },
     {
       id: 'of-03', tipo: 'oferta', destacado: false, orden: 5,
-      titulo: 'Cali ida y vuelta', subtitulo: 'Salsa, gastronomía y naturaleza',
+      titulo: 'Cali', subtitulo: 'Salsa, gastronomía y naturaleza',
       descripcion: 'Descubre el Pacífico colombiano a un precio increíble.',
       etiqueta: 'Precio especial',
-      precio: 180000, precioOriginal: null, descuento: null,
+      precio: 108000, precioOriginal: 180000, descuento: 40,
       origen: 'BOG', destino: 'CLO',
       imagen: 'https://blog.uber-cdn.com/cdn-cgi/image/width=2160,quality=80,onerror=redirect,format=auto/wp-content/uploads/2018/06/CO_X-lugares-turi%CC%81sticos-de-Cali-que-te-dejara%CC%81n-sin-palabras.jpg',
       color: 'cyan', tipo_badge: 'Nacional',
@@ -289,22 +281,22 @@
       popular: false, incluye: null, estrellas: null, vigencia: null
     },
     {
-      id: 'ds-03', tipo: 'destino', destacado: false, orden: 7,
+      id: 'ds-03', tipo: 'destino', destacado: true, orden: 6,
       titulo: 'Cartagena', subtitulo: 'Colombia',
       descripcion: 'Ciudad amurallada, playas paradisíacas y brisa caribeña.',
       etiqueta: null,
-      precio: 250000, precioOriginal: null, descuento: null,
+      precio: 150000, precioOriginal: 250000, descuento: 40,
       origen: 'BOG', destino: 'CTG',
       imagen: 'https://images.unsplash.com/photo-1692839685082-c66d810f0a21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800',
       color: null, tipo_badge: 'Nacional',
       popular: false, incluye: null, estrellas: null, vigencia: null
     },
     {
-      id: 'ds-04', tipo: 'destino', destacado: false, orden: 8,
+      id: 'ds-04', tipo: 'destino', destacado: true, orden: 7,
       titulo: 'Medellín', subtitulo: 'Colombia',
       descripcion: 'La ciudad de la eterna primavera: innovación y naturaleza.',
       etiqueta: null,
-      precio: 160000, precioOriginal: null, descuento: null,
+      precio: 96000, precioOriginal: 160000, descuento: 40,
       origen: 'BOG', destino: 'MDE',
       imagen: 'https://images.unsplash.com/photo-1640768239887-77479f49a7dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800',
       color: null, tipo_badge: 'Nacional',
@@ -316,7 +308,7 @@
       titulo: 'Cartagena Express', subtitulo: 'Vuelo + 3 noches hotel + traslados',
       descripcion: 'Escapada perfecta al Caribe colombiano con todo incluido.',
       etiqueta: 'Más vendido',
-      precio: 920000, precioOriginal: 1280000, descuento: 28,
+      precio: 552000, precioOriginal: 920000, descuento: 40,
       origen: 'BOG', destino: 'CTG',
       imagen: 'https://images.unsplash.com/photo-1621944860377-8cfda325a59e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800',
       color: null, tipo_badge: 'Nacional',
@@ -325,7 +317,7 @@
     },
     {
       id: 'pk-02', tipo: 'paquete', destacado: true, orden: 4,
-      titulo: 'Clase Ejecutiva Madrid', subtitulo: 'Vuelo ejecutiva + hotel boutique 5★',
+      titulo: 'Madrid', subtitulo: 'Vuelo ejecutiva + hotel boutique 5★',
       descripcion: 'Experiencia premium en la capital española sin preocupaciones.',
       etiqueta: 'Premium',
       precio: 8100000, precioOriginal: 10800000, descuento: 25,
@@ -337,7 +329,7 @@
     },
     {
       id: 'pk-03', tipo: 'paquete', destacado: false, orden: 9,
-      titulo: 'Barcelona Cultural', subtitulo: 'Vuelo + 5 noches + tour Gaudí',
+      titulo: 'Barcelona', subtitulo: 'Vuelo + 5 noches + tour Gaudí',
       descripcion: 'Descubre la arquitectura modernista con un paquete completo.',
       etiqueta: 'Nuevo',
       precio: 6750000, precioOriginal: 8500000, descuento: 21,
@@ -346,6 +338,111 @@
       color: null, tipo_badge: 'Internacional',
       incluye: ['Vuelo ida y vuelta', 'Hotel 4★ Las Ramblas', 'Tour Gaudí guiado', 'Seguro de viaje'],
       estrellas: 4, vigencia: '2026-10-15'
+    },
+    // ── OFERTAS ADICIONALES ──
+    {
+      id: 'of-04', tipo: 'oferta', destacado: true, orden: 2,
+      titulo: 'Santa Marta', subtitulo: 'Playas y jungla',
+      descripcion: 'Combinación perfecta de playa caribeña y naturaleza exuberante.',
+      etiqueta: 'Aventura',
+      precio: 108000, precioOriginal: 180000, descuento: 40,
+      origen: 'BOG', destino: 'SMR',
+      imagen: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
+      color: 'teal', tipo_badge: 'Nacional',
+      incluye: null, estrellas: null, vigencia: '2026-07-31'
+    },
+    {
+      id: 'of-05', tipo: 'oferta', destacado: false, orden: 2,
+      titulo: 'Miami', subtitulo: 'Playas, shopping y cultura',
+      descripcion: 'Tu escape perfecto a la Florida con las mejores tarifas.',
+      etiqueta: '\xdaltimas plazas',
+      precio: 1850000, precioOriginal: null, descuento: null,
+      origen: 'BOG', destino: 'MIA',
+      imagen: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80',
+      color: 'blue', tipo_badge: 'Internacional',
+      incluye: null, estrellas: null, vigencia: '2026-08-15'
+    },
+    {
+      id: 'of-06', tipo: 'oferta', destacado: false, orden: 3,
+      titulo: 'Pereira', subtitulo: 'Café, montaña y tradición',
+      descripcion: 'Vive la experiencia cafetera colombiana con especial descuento.',
+      etiqueta: 'Promoción',
+      precio: 72000, precioOriginal: 120000, descuento: 40,
+      origen: 'BOG', destino: 'PEI',
+      imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+      color: 'orange', tipo_badge: 'Nacional',
+      incluye: null, estrellas: null, vigencia: '2026-09-30'
+    },
+    // ── DESTINOS ADICIONALES ──
+    {
+      id: 'ds-05', tipo: 'destino', destacado: true, orden: 4,
+      titulo: 'Miami', subtitulo: 'Estados Unidos',
+      descripcion: 'La ciudad del sol, compras y vida nocturna vibrante.',
+      etiqueta: null,
+      precio: 1850000, precioOriginal: null, descuento: null,
+      origen: 'BOG', destino: 'MIA',
+      imagen: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80',
+      color: null, tipo_badge: 'Internacional',
+      popular: false, incluye: null, estrellas: null, vigencia: null
+    },
+    {
+      id: 'ds-06', tipo: 'destino', destacado: false, orden: 8,
+      titulo: 'Santa Marta', subtitulo: 'Colombia',
+      descripcion: 'Puerta a la Ciudad Perdida, playas y arqueología milenaria.',
+      etiqueta: null,
+      precio: 108000, precioOriginal: 180000, descuento: 40,
+      origen: 'BOG', destino: 'SMR',
+      imagen: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
+      color: null, tipo_badge: 'Nacional',
+      popular: false, incluye: null, estrellas: null, vigencia: null
+    },
+    {
+      id: 'ds-07', tipo: 'destino', destacado: false, orden: 9,
+      titulo: 'Pereira', subtitulo: 'Colombia',
+      descripcion: 'Corazón del Eje Cafetero: plantaciones, cultura y diversidad.',
+      etiqueta: null,
+      precio: 72000, precioOriginal: 120000, descuento: 40,
+      origen: 'BOG', destino: 'PEI',
+      imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+      color: null, tipo_badge: 'Nacional',
+      popular: false, incluye: null, estrellas: null, vigencia: null
+    },
+    // ── PAQUETES ADICIONALES ──
+    {
+      id: 'pk-04', tipo: 'paquete', destacado: true, orden: 5,
+      titulo: 'Medellín', subtitulo: 'Vuelo + 3 noches + tour artístico',
+      descripcion: 'Descubre el arte urbano y la transformación de la ciudad.',
+      etiqueta: 'Destacado',
+      precio: 528000, precioOriginal: 880000, descuento: 40,
+      origen: 'BOG', destino: 'MDE',
+      imagen: 'https://images.unsplash.com/photo-1640768239887-77479f49a7dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800',
+      color: null, tipo_badge: 'Nacional',
+      incluye: ['Vuelo ida y vuelta', 'Hotel 3★ Centro', 'Tour Comuna 13 guiado', 'Gastronomía local'],
+      estrellas: 4, vigencia: '2026-09-30'
+    },
+    {
+      id: 'pk-05', tipo: 'paquete', destacado: false, orden: 10,
+      titulo: 'Miami', subtitulo: 'Vuelo + 4 noches + parques temáticos',
+      descripcion: 'Vive la aventura en los mejores parques de Florida.',
+      etiqueta: 'Familia',
+      precio: 4440000, precioOriginal: null, descuento: null,
+      origen: 'BOG', destino: 'MIA',
+      imagen: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80',
+      color: null, tipo_badge: 'Internacional',
+      incluye: ['Vuelo ida y vuelta', 'Hotel 4★ Miami Beach', 'Entrada parque temático', 'Transporte incluido'],
+      estrellas: 4, vigencia: '2026-10-31'
+    },
+    {
+      id: 'pk-06', tipo: 'paquete', destacado: false, orden: 11,
+      titulo: 'Santa Marta', subtitulo: 'Vuelo + 5 noches + Ciudad Perdida',
+      descripcion: 'La aventura completa: playas y arqueología en 5 días.',
+      etiqueta: 'Aventura',
+      precio: 2592000, precioOriginal: 4320000, descuento: 40,
+      origen: 'BOG', destino: 'SMR',
+      imagen: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
+      color: null, tipo_badge: 'Nacional',
+      incluye: ['Vuelo ida y vuelta', 'Hotel 3★ frente al mar', 'Trek Ciudad Perdida', 'Desayunos incluidos'],
+      estrellas: 5, vigencia: '2026-11-30'
     }
   ];
 

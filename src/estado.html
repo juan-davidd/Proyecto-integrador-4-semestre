@@ -84,6 +84,26 @@
     .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .85rem; align-items: end; }
     @media (max-width: 560px) { .form-row-3 { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 380px) { .form-row-3 { grid-template-columns: 1fr; } }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: .85rem; align-items: end; }
+    @media (max-width: 640px) { .form-row-2 { grid-template-columns: 1fr 1fr; } }
+
+    /* Search tabs */
+    .search-tabs {
+      display: flex; gap: 0; margin-bottom: 1.25rem;
+      background: var(--col-gray-100); border-radius: var(--radius-sm); padding: 3px;
+    }
+    .search-tab {
+      flex: 1; padding: .45rem .75rem; font-size: .8rem; font-weight: 600;
+      color: var(--col-gray-500); border-radius: calc(var(--radius-sm) - 2px);
+      cursor: pointer; transition: all .2s; text-align: center;
+      border: none; background: transparent; font-family: inherit;
+    }
+    .search-tab.active {
+      background: var(--col-white); color: var(--col-primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+    .search-panel { display: none; }
+    .search-panel.active { display: block; }
     .form-group { display: flex; flex-direction: column; gap: .3rem; }
     .form-group label { font-size: .75rem; font-weight: 600; color: var(--col-gray-600); }
     .form-input {
@@ -349,21 +369,79 @@
       <h2>Buscar vuelo</h2>
       <p>Ingresa el número de vuelo o selecciona una ruta</p>
 
-      <form id="statusForm" novalidate>
-        <div class="form-row-3">
-          <div class="form-group">
-            <label for="sf-flight">N.° de vuelo</label>
-            <input id="sf-flight" class="form-input" type="text" placeholder="Ej: TS-152" style="text-transform:uppercase" />
+      <!-- Tabs -->
+      <div class="search-tabs">
+        <button class="search-tab active" id="tab-numero" onclick="switchTab('numero')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.3rem"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+          Por número de vuelo
+        </button>
+        <button class="search-tab" id="tab-ruta" onclick="switchTab('ruta')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.3rem"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Por ruta (origen → destino)
+        </button>
+      </div>
+
+      <!-- Panel: por número -->
+      <div class="search-panel active" id="panel-numero">
+        <form id="statusForm" novalidate>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label for="sf-flight">N.° de vuelo</label>
+              <input id="sf-flight" class="form-input" type="text" placeholder="Ej: TS-152" style="text-transform:uppercase" />
+            </div>
+            <div class="form-group">
+              <label for="sf-date">Fecha</label>
+              <input id="sf-date" class="form-input" type="date" />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" style="width:100%;padding:.65rem;">Consultar</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="sf-date">Fecha</label>
-            <input id="sf-date" class="form-input" type="date" />
+        </form>
+      </div>
+
+      <!-- Panel: por ruta -->
+      <div class="search-panel" id="panel-ruta">
+        <form id="routeForm" novalidate>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="sf-origin">Origen</label>
+              <select id="sf-origin" class="form-input">
+                <option value="">Selecciona origen</option>
+                <option value="BOG">BOG – Bogotá</option>
+                <option value="MDE">MDE – Medellín</option>
+                <option value="CLO">CLO – Cali</option>
+                <option value="CTG">CTG – Cartagena</option>
+                <option value="MAD">MAD – Madrid</option>
+                <option value="BCN">BCN – Barcelona</option>
+                <option value="JFK">JFK – New York</option>
+                <option value="MIA">MIA – Miami</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="sf-dest">Destino</label>
+              <select id="sf-dest" class="form-input">
+                <option value="">Selecciona destino</option>
+                <option value="BOG">BOG – Bogotá</option>
+                <option value="MDE">MDE – Medellín</option>
+                <option value="CLO">CLO – Cali</option>
+                <option value="CTG">CTG – Cartagena</option>
+                <option value="MAD">MAD – Madrid</option>
+                <option value="BCN">BCN – Barcelona</option>
+                <option value="JFK">JFK – New York</option>
+                <option value="MIA">MIA – Miami</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="sf-date2">Fecha</label>
+              <input id="sf-date2" class="form-input" type="date" />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" style="width:100%;padding:.65rem;">Buscar vuelo</button>
+            </div>
           </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary" style="width:100%;padding:.65rem;">Consultar</button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
       <div id="sfError" class="sf-error">No se encontró un vuelo con ese número. Intenta con: TS-152, TS-241 o TS-378.</div>
 
@@ -655,10 +733,47 @@
     showToast('Vuelo ' + no + ' encontrado', 'success');
   }
 
-  // ── Form submit ──
+  // ── Tab switch ──
+  window.switchTab = function(tab) {
+    document.getElementById('tab-numero').classList.toggle('active', tab === 'numero');
+    document.getElementById('tab-ruta').classList.toggle('active', tab === 'ruta');
+    document.getElementById('panel-numero').classList.toggle('active', tab === 'numero');
+    document.getElementById('panel-ruta').classList.toggle('active', tab === 'ruta');
+  };
+
+  // ── Form submit (by number) ──
   document.getElementById('statusForm').addEventListener('submit', function (e) {
     e.preventDefault();
     searchFlight(document.getElementById('sf-flight').value);
+  });
+
+  // ── Form submit (by route) ──
+  document.getElementById('routeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var origin = document.getElementById('sf-origin').value.trim().toUpperCase();
+    var dest   = document.getElementById('sf-dest').value.trim().toUpperCase();
+    var errEl  = document.getElementById('sfError');
+    if (!origin || !dest) {
+      errEl.textContent = 'Selecciona origen y destino para buscar.';
+      errEl.classList.add('show');
+      return;
+    }
+    var found = null;
+    var foundKey = null;
+    Object.keys(TSData.ESTADO_VUELOS).forEach(function(k) {
+      var f = TSData.ESTADO_VUELOS[k];
+      if (f.origin === origin && f.dest === dest) { found = f; foundKey = k; }
+    });
+    if (!found) {
+      errEl.textContent = 'No se encontró ningún vuelo para la ruta ' + origin + ' → ' + dest + '. Intenta otra combinación.';
+      errEl.classList.add('show');
+      document.getElementById('statusResult').hidden = true;
+      showToast('Ruta no encontrada', 'error');
+      return;
+    }
+    errEl.classList.remove('show');
+    document.getElementById('sf-flight').value = foundKey;
+    renderFlight(foundKey, found);
   });
 
   // ── Quick search ──

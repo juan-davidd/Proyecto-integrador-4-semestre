@@ -224,6 +224,43 @@
     .action-btn:hover { border-color: var(--col-primary); color: var(--col-primary); background: rgba(11,61,145,.05); }
     .action-btn.danger:hover { border-color: #d4183d; color: #d4183d; background: #fef2f2; }
     .action-btn.danger svg { color: #d4183d; }
+
+    /* Seat change modal */
+    .seat-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .seat-modal {
+      background: #fff; border-radius: var(--radius-xl); padding: 1.5rem;
+      max-width: 460px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    .seat-modal h3 { font-size: 1rem; font-weight: 700; color: var(--col-gray-900); margin-bottom: .2rem; }
+    .seat-modal-sub { font-size: .78rem; color: var(--col-gray-500); margin-bottom: 1.25rem; }
+    .mini-seat-header { display: flex; gap: .3rem; margin-bottom: .35rem; padding-left: 26px; }
+    .mini-seat-col-lbl { width: 36px; text-align: center; font-size: .62rem; color: var(--col-gray-400); font-weight: 600; }
+    .mini-seat-col-lbl.aisle-space { width: 10px; }
+    .mini-seat-row {
+      display: flex; align-items: center; gap: .3rem; margin-bottom: .3rem;
+    }
+    .mini-row-num { width: 22px; font-size: .65rem; color: var(--col-gray-400); text-align: right; flex-shrink: 0; }
+    .mini-aisle { width: 10px; flex-shrink: 0; }
+    .mini-seat-btn {
+      width: 36px; height: 36px; border-radius: 6px;
+      border: 1.5px solid #bfdbfe; background: #eff6ff;
+      cursor: pointer; font-size: .67rem; font-weight: 600; color: var(--col-primary);
+      transition: background .15s, border-color .15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mini-seat-btn:hover:not(:disabled) { background: #dbeafe; border-color: var(--col-primary); }
+    .mini-seat-btn.ms-selected { background: var(--col-primary); color: #fff; border-color: var(--col-primary); }
+    .mini-seat-btn.ms-occupied { background: #f3f4f6; border-color: #e5e7eb; color: #9ca3af; cursor: not-allowed; font-size: .6rem; }
+    .mini-seat-btn.ms-current { background: #fefce8; border-color: #fde047; color: #713f12; }
+    .mini-seat-status { font-size: .78rem; color: var(--col-primary); font-weight: 600; min-height: 1.2em; margin: .75rem 0 1rem; }
+    .seat-modal-legend { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sm-legend-item { display: flex; align-items: center; gap: .35rem; font-size: .7rem; color: var(--col-gray-500); }
+    .sm-legend-dot { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid; }
+    .seat-modal-actions { display: flex; gap: .75rem; }
+    .seat-modal-actions .btn { flex: 1; justify-content: center; }
   </style>
 </head>
 <body>
@@ -399,7 +436,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           Imprimir tiquete
         </button>
-        <button class="action-btn" onclick="alert('Función de cambio de asiento disponible próximamente.')">
+        <button class="action-btn" onclick="openSeatModal()">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Cambiar asiento
         </button>
@@ -413,6 +450,35 @@
   </div><!-- /container -->
 
 </main>
+
+<!-- Seat Change Modal -->
+<div id="seatModal" style="display:none" class="seat-modal-overlay" onclick="if(event.target===this)closeSeatModal()">
+  <div class="seat-modal">
+    <h3>Cambiar asiento</h3>
+    <p class="seat-modal-sub" id="smCurrent">Asiento actual: <strong>—</strong> · Selecciona un nuevo asiento</p>
+    <div class="seat-modal-legend">
+      <div class="sm-legend-item"><div class="sm-legend-dot" style="background:#eff6ff;border-color:#bfdbfe"></div>Disponible</div>
+      <div class="sm-legend-item"><div class="sm-legend-dot" style="background:#0B3D91;border-color:#0B3D91"></div>Seleccionado</div>
+      <div class="sm-legend-item"><div class="sm-legend-dot" style="background:#fefce8;border-color:#fde047"></div>Tu asiento actual</div>
+      <div class="sm-legend-item"><div class="sm-legend-dot" style="background:#f3f4f6;border-color:#e5e7eb"></div>Ocupado</div>
+    </div>
+    <div class="mini-seat-header">
+      <div class="mini-seat-col-lbl">A</div>
+      <div class="mini-seat-col-lbl">B</div>
+      <div class="mini-seat-col-lbl">C</div>
+      <div class="mini-seat-col-lbl aisle-space"></div>
+      <div class="mini-seat-col-lbl">D</div>
+      <div class="mini-seat-col-lbl">E</div>
+      <div class="mini-seat-col-lbl">F</div>
+    </div>
+    <div id="miniSeatMap"></div>
+    <div class="mini-seat-status" id="smSelected"></div>
+    <div class="seat-modal-actions">
+      <button class="btn" style="border:1.5px solid var(--col-gray-300);color:var(--col-gray-700)" onclick="closeSeatModal()">Cancelar</button>
+      <button class="btn btn-primary" id="confirmSeatBtn" disabled onclick="confirmSeatChange()">Confirmar cambio</button>
+    </div>
+  </div>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer class="site-footer">
@@ -576,6 +642,83 @@
 
   // ── Print ──
   window.printPage = function () { window.print(); };
+
+  // ── Seat change modal ──
+  var selectedNewSeat = null;
+  var OCCUPIED_SM = ['1A','1C','2B','2F','3D','4A','4E','5C','6B','7D','8A','8F'];
+  var COLS_SM = ['A','B','C','D','E','F'];
+
+  window.openSeatModal = function() {
+    if (!currentBooking || currentBooking.estado === 'Cancelada') return;
+    selectedNewSeat = null;
+    document.getElementById('confirmSeatBtn').disabled = true;
+    document.getElementById('smSelected').textContent = '';
+    document.getElementById('smCurrent').innerHTML = 'Asiento actual: <strong>' + (currentBooking.seat || '—') + '</strong> · Selecciona un nuevo asiento disponible';
+    buildMiniSeatMap();
+    document.getElementById('seatModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeSeatModal = function() {
+    document.getElementById('seatModal').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  function buildMiniSeatMap() {
+    var map = document.getElementById('miniSeatMap');
+    map.innerHTML = '';
+    var currentSeat = currentBooking.seat || '';
+    for (var r = 3; r <= 10; r++) {
+      var rowDiv = document.createElement('div');
+      rowDiv.className = 'mini-seat-row';
+      var numDiv = document.createElement('div');
+      numDiv.className = 'mini-row-num';
+      numDiv.textContent = r;
+      rowDiv.appendChild(numDiv);
+      COLS_SM.forEach(function(col, ci) {
+        if (ci === 3) {
+          var aisle = document.createElement('div');
+          aisle.className = 'mini-aisle';
+          rowDiv.appendChild(aisle);
+        }
+        var seatId = r + col;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = seatId;
+        if (seatId === currentSeat) {
+          btn.className = 'mini-seat-btn ms-current';
+          btn.disabled = true;
+          btn.title = 'Tu asiento actual';
+        } else if (OCCUPIED_SM.indexOf(seatId) !== -1) {
+          btn.className = 'mini-seat-btn ms-occupied';
+          btn.disabled = true;
+          btn.textContent = '✕';
+        } else {
+          btn.className = 'mini-seat-btn';
+          (function(id, el) {
+            el.addEventListener('click', function() {
+              selectedNewSeat = id;
+              map.querySelectorAll('.mini-seat-btn').forEach(function(b) { b.classList.remove('ms-selected'); });
+              el.classList.add('ms-selected');
+              document.getElementById('smSelected').textContent = 'Asiento seleccionado: ' + id;
+              document.getElementById('confirmSeatBtn').disabled = false;
+            });
+          })(seatId, btn);
+        }
+        rowDiv.appendChild(btn);
+      });
+      map.appendChild(rowDiv);
+    }
+  }
+
+  window.confirmSeatChange = function() {
+    if (!selectedNewSeat || !currentBooking) return;
+    TSData.updateReserva(currentBooking.code, { seat: selectedNewSeat });
+    currentBooking.seat = selectedNewSeat;
+    renderBooking(currentBooking);
+    closeSeatModal();
+    showToast('Asiento cambiado a ' + selectedNewSeat + ' exitosamente', 'success');
+  };
 
   // ── Hamburger ──
   var ham = document.getElementById('hamburger');
