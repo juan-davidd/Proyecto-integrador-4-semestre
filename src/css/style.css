@@ -1351,6 +1351,18 @@ body {
 .filter-check input { accent-color: var(--col-primary); }
 .filter-check span { font-size: .85rem; color: var(--col-gray-700); }
 .results-list { display: flex; flex-direction: column; gap: 1rem; }
+.filter-clear-btn {
+  width: 100%;
+  margin-top: .4rem;
+  color: var(--col-gray-500);
+  font-size: .8rem;
+}
+.no-results-msg {
+  text-align: center;
+  color: var(--col-gray-500);
+  padding: 2rem;
+  display: none;
+}
 .flight-card {
   background: var(--col-white);
   border-radius: var(--radius-lg);
@@ -1397,7 +1409,20 @@ body {
 .flight-line::before { left: 0; }
 .flight-line::after  { right: 0; }
 .flight-stops { font-size: .7rem; color: var(--col-gray-500); }
+.flight-stops-direct {
+  color: var(--col-primary);
+  font-weight: 600;
+}
+.flight-stops-scale {
+  color: var(--col-orange);
+  font-weight: 500;
+}
 .flight-price-wrap { text-align: right; }
+.flight-cabin-tag {
+  font-size: .7rem;
+  color: var(--col-gray-500);
+  margin-bottom: .1rem;
+}
 .flight-price { font-size: 1.4rem; font-weight: 800; color: var(--col-primary); }
 .flight-price-sub { font-size: .72rem; color: var(--col-gray-500); }
 .promo-price { color: #e05c00; }
@@ -1463,17 +1488,21 @@ body {
    MODO OSCURO
    ========================================== */
 [data-theme="dark"] {
-  --col-white:    #0f172a;
-  --col-gray-50:  #1e293b;
-  --col-gray-100: #334155;
-  --col-gray-200: #475569;
-  --col-gray-300: #64748b;
-  --col-gray-400: #94a3b8;
-  --col-gray-500: #94a3b8;
-  --col-gray-600: #cbd5e1;
-  --col-gray-700: #e2e8f0;
-  --col-gray-800: #f1f5f9;
-  --col-gray-900: #f8fafc;
+  --col-white:        #0f172a;
+  --col-gray-50:      #1e293b;
+  --col-gray-100:     #334155;
+  --col-gray-200:     #475569;
+  --col-gray-300:     #64748b;
+  --col-gray-400:     #e6edf7;
+  --col-gray-500:     #edf3fb;
+  --col-gray-600:     #f5f9ff;
+  --col-gray-700:     #fbfdff;
+  --col-gray-800:     #ffffff;
+  --col-gray-900:     #ffffff;
+  --col-primary:      #60a5fa;
+  --col-primary-dark: #3b82f6;
+  --col-cyan:         #38bdf8;
+  --col-cyan-dark:    #0ea5e9;
 }
 /* Header buttons en modo oscuro (fondo siempre oscuro) */
 [data-theme="dark"] .site-header .btn-white {
@@ -1501,22 +1530,119 @@ body {
 [data-theme="dark"] .confirm-modal {
   background: #1e293b;
   border-color: #334155;
+  color: #f1f5f9;
 }
+[data-theme="dark"] .modal-box h3,
+[data-theme="dark"] .seat-modal h3 { color: #ffffff; }
+[data-theme="dark"] .modal-box p,
+[data-theme="dark"] .seat-modal p  { color: #e2e8f0; }
 /* Dropdowns */
 [data-theme="dark"] .lang-dropdown {
   background: #1e293b;
   border-color: #334155;
 }
-[data-theme="dark"] .lang-dropdown button { color: #e2e8f0; }
-[data-theme="dark"] .lang-dropdown button:hover { background: #334155; }
+[data-theme="dark"] .lang-dropdown button { color: #f1f5f9; }
+[data-theme="dark"] .lang-dropdown button:hover { background: #334155; color: #ffffff; }
+/* Buscador de aeropuertos */
+[data-theme="dark"] .airport-dropdown {
+  background: #1e293b;
+  border-color: #334155;
+}
+[data-theme="dark"] .airport-option:hover,
+[data-theme="dark"] .airport-option.focused { background: #334155; }
+[data-theme="dark"] .airport-name { color: #f1f5f9; }
+[data-theme="dark"] .airport-code { background: rgba(96,165,250,.15); color: #93c5fd; }
+/* Formulario de búsqueda */
+[data-theme="dark"] .search-card {
+  background: #0f172a;
+  border-top-color: var(--col-accent);
+}
+[data-theme="dark"] .field-group label { color: #edf3fb; }
+[data-theme="dark"] .field-group input[type="text"],
+[data-theme="dark"] .field-group input[type="date"] {
+  background: #1e293b;
+  border-color: #334155;
+  color: #ffffff;
+}
+[data-theme="dark"] .trip-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #edf3fb;
+}
+[data-theme="dark"] .trip-btn.active {
+  background: var(--col-primary);
+  border-color: var(--col-primary);
+  color: #ffffff;
+}
+[data-theme="dark"] .passengers-trigger {
+  background: #1e293b;
+  border-color: #334155;
+  color: #ffffff;
+}
+[data-theme="dark"] .passengers-panel {
+  background: #1e293b;
+  border-color: #334155;
+}
+[data-theme="dark"] .pass-type { color: #ffffff; }
+[data-theme="dark"] .pass-age  { color: #edf3fb; }
+[data-theme="dark"] .counter-val { color: #ffffff; }
+[data-theme="dark"] .cabin-select label { color: #edf3fb; }
+[data-theme="dark"] .cabin-select select {
+  background: #1e293b;
+  border-color: #334155;
+  color: #ffffff;
+}
+/* Trust badges */
+[data-theme="dark"] .trust-section {
+  background: #0f172a;
+  border-bottom-color: #1e293b;
+}
+[data-theme="dark"] .trust-label { color: #ffffff; }
+[data-theme="dark"] .trust-sub   { color: #edf3fb; }
+[data-theme="dark"] .trust-icon  { background: rgba(96,165,250,.12); color: #60a5fa; }
+/* Encabezados de sección */
+[data-theme="dark"] .section-eyebrow { color: #60a5fa; }
+[data-theme="dark"] .section-header h2 { color: #ffffff; }
+[data-theme="dark"] .section-link { color: #93c5fd; }
+/* Catálogo / Cards */
+[data-theme="dark"] .catalogo-section { background: #020617; }
+[data-theme="dark"] .cat-card {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .cat-card-body h3 { color: #ffffff; }
+[data-theme="dark"] .cat-card-body .cat-sub  { color: #edf3fb; }
+[data-theme="dark"] .cat-card-body .cat-desc { color: #edf3fb; }
+[data-theme="dark"] .cat-includes li { color: #f1f5f9; }
+[data-theme="dark"] .cat-includes li svg { color: #60a5fa; }
+[data-theme="dark"] .cat-price    { color: #93c5fd; }
+[data-theme="dark"] .cat-original { color: #94a3b8; }
+[data-theme="dark"] .cat-desde    { color: #edf3fb; }
+[data-theme="dark"] .cat-badge-tipo { background: rgba(255,255,255,.15); color: #ffffff; }
+[data-theme="dark"] .catalogo-tab {
+  background: #1e293b;
+  border-color: #334155;
+  color: #edf3fb;
+}
+[data-theme="dark"] .catalogo-tab:hover { border-color: #60a5fa; color: #ffffff; }
+[data-theme="dark"] .catalogo-tab.active {
+  background: #60a5fa;
+  border-color: #60a5fa;
+  color: #0f172a;
+}
 /* Tarjetas de tarifas */
 [data-theme="dark"] .tarifa-card {
   background: #1e293b;
   border-color: #334155;
+  color: #f1f5f9;
 }
+[data-theme="dark"] .tarifa-card h4,
+[data-theme="dark"] .tarifa-card .tarifa-name { color: #ffffff; }
+[data-theme="dark"] .tarifa-card p,
+[data-theme="dark"] .tarifa-card li { color: #e2e8f0; }
 [data-theme="dark"] .tarifa-card.selected {
   border-color: var(--col-primary);
-  background: #1e3a8a22;
+  background: rgba(96,165,250,.08);
 }
 /* Asientos disponibles */
 [data-theme="dark"] .seat-available {
@@ -1524,7 +1650,7 @@ body {
   border-color: #3b82f6;
   color: #93c5fd;
 }
-[data-theme="dark"] .seat-available:hover { background: #1d4ed8; }
+[data-theme="dark"] .seat-available:hover { background: #2563eb; }
 [data-theme="dark"] .seat-business {
   background: #3f3107;
   border-color: #a16207;
@@ -1540,8 +1666,104 @@ body {
   background: #334155;
   color: #64748b;
 }
+/* Login */
+[data-theme="dark"] .login-panel-form {
+  background: #111827;
+}
+[data-theme="dark"] .login-form-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 18px 36px -16px rgba(0,0,0,.55);
+}
+[data-theme="dark"] .login-error {
+  background: rgba(239,68,68,.12);
+  border-color: rgba(239,68,68,.45);
+  color: #fecaca;
+}
+[data-theme="dark"] .login-logo-brand { color: #60a5fa; }
+/* Resultados */
+[data-theme="dark"] .results-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+}
+[data-theme="dark"] .filter-clear-btn { color: #f5f9ff; }
+[data-theme="dark"] .filter-check span { color: #edf3fb; }
+[data-theme="dark"] .flight-cabin-tag,
+[data-theme="dark"] .no-results-msg { color: #edf3fb; }
+[data-theme="dark"] .flight-stops-direct { color: #93c5fd; }
+[data-theme="dark"] .flight-stops-scale  { color: #fdba74; }
+[data-theme="dark"] .flight-airport .code { color: #ffffff; }
+[data-theme="dark"] .flight-airport .time { color: #e2e8f0; }
+[data-theme="dark"] .flight-airport .city { color: #93c5fd; }
+[data-theme="dark"] .flight-time { color: #ffffff; }
+[data-theme="dark"] .flight-duration { color: #edf3fb; }
+[data-theme="dark"] .flight-price { color: #ffffff; }
+[data-theme="dark"] .flight-price-label { color: #edf3fb; }
+/* Amenity pills */
+[data-theme="dark"] .amenity-pill {
+  background: #0f172a;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+/* Body / main text */
+[data-theme="dark"] body { color: #f1f5f9; }
+/* Corrección global: cualquier texto oscuro hardcodeado en dark mode */
+[data-theme="dark"] [style*="color:#1f2937"] { color: #ffffff !important; }
+[data-theme="dark"] [style*="color:#111827"] { color: #ffffff !important; }
+[data-theme="dark"] [style*="color:#374151"] { color: #f1f5f9 !important; }
+[data-theme="dark"] [style*="color:#4b5563"] { color: #f1f5f9 !important; }
+[data-theme="dark"] [style*="color:#6b7280"] { color: #edf3fb !important; }
+[data-theme="dark"] [style*="color:#9ca3af"] { color: #edf3fb !important; }
 /* Scrollbar */
 [data-theme="dark"] ::-webkit-scrollbar { background: #1e293b; }
 [data-theme="dark"] ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
 /* El footer siempre oscuro — no afectar con dark mode vars */
-[data-theme="dark"] .site-footer { background: #0a1020; color: rgba(255,255,255,.65); }
+[data-theme="dark"] .site-footer { background: #0a1020; color: rgba(255,255,255,.82); }
+
+/* ── Check-in & Estado de vuelo ── */
+[data-theme="dark"] .checkin-card,
+[data-theme="dark"] .status-card,
+[data-theme="dark"] .flight-status-card,
+[data-theme="dark"] .boarding-pass { background: #0f172a; border-color: #1e293b; }
+[data-theme="dark"] .card-head h2,
+[data-theme="dark"] .status-card h2,
+[data-theme="dark"] .fsc-flight-no   { color: #ffffff; }
+[data-theme="dark"] .card-head p,
+[data-theme="dark"] .status-card > p,
+[data-theme="dark"] .fsc-date        { color: #edf3fb; }
+[data-theme="dark"] .req-item        { color: #f1f5f9; }
+[data-theme="dark"] .fl-mini-code,
+[data-theme="dark"] .fsc-airport-code,
+[data-theme="dark"] .bp-code         { color: #ffffff; }
+[data-theme="dark"] .fl-mini-time,
+[data-theme="dark"] .fsc-airport-time,
+[data-theme="dark"] .bp-flight-no    { color: #e2e8f0; }
+[data-theme="dark"] .fsc-airport-city,
+[data-theme="dark"] .bp-city         { color: #93c5fd; }
+[data-theme="dark"] .bp-detail-item label { color: #edf3fb; }
+[data-theme="dark"] .bp-detail-item span  { color: #ffffff; }
+[data-theme="dark"] .bp-code-text    { color: #edf3fb; }
+[data-theme="dark"] .bp-bar          { background: #94a3b8; }
+[data-theme="dark"] .flight-mini,
+[data-theme="dark"] .fsc-details-grid { background: #1e293b; border-color: #334155; }
+[data-theme="dark"] .security-declaration {
+  background: rgba(30,58,138,.25);
+  border-color: rgba(96,165,250,.25);
+}
+[data-theme="dark"] .security-declaration h4 { color: #93c5fd; }
+[data-theme="dark"] .sec-check-label span { color: #e2e8f0; }
+/* Status badges (vuelo en tiempo, retrasado…) */
+[data-theme="dark"] .status-ontime    { background: rgba(34,197,94,.18);  color: #86efac; }
+[data-theme="dark"] .status-delayed   { background: rgba(234,179,8,.18);  color: #fcd34d; }
+[data-theme="dark"] .status-cancelled { background: rgba(239,68,68,.18);  color: #fca5a5; }
+[data-theme="dark"] .status-boarding  { background: rgba(56,189,248,.18); color: #7dd3fc; }
+[data-theme="dark"] .status-arrived   { background: rgba(96,165,250,.18); color: #93c5fd; }
+/* Search tabs en estado.html */
+[data-theme="dark"] .search-tabs { background: #1e293b; }
+[data-theme="dark"] .search-tab  { color: #edf3fb; }
+[data-theme="dark"] .search-tab.active { background: #334155; color: #60a5fa; }
+[data-theme="dark"] .route-pill {
+  background: #1e293b;
+  border-color: #334155;
+  color: #edf3fb;
+}
+[data-theme="dark"] .route-pill:hover { border-color: #60a5fa; color: #93c5fd; }
