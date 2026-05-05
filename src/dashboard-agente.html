@@ -111,6 +111,45 @@
     .sidebar-mobile{position:fixed;left:0;top:0;bottom:0;width:260px;z-index:51;transform:translateX(-100%);transition:transform .3s ease;background:#fff;box-shadow:2px 0 20px rgba(0,0,0,.15);display:flex;flex-direction:column}
     .sidebar-mobile.open{transform:translateX(0)}
 
+    /* ── DARK MODE ── */
+    [data-theme="dark"] body{background:#020617}
+    [data-theme="dark"] .sidebar,
+    [data-theme="dark"] .sidebar-mobile{background:#0f172a;border-right-color:#1e293b}
+    [data-theme="dark"] .sidebar-nav-label{color:#f5f9ff}
+    [data-theme="dark"] .sidebar-nav a{color:#ffffff}
+    [data-theme="dark"] .sidebar-nav a:hover{background:#1e293b;color:#86efac}
+    [data-theme="dark"] .sidebar-nav a.active{background:#064e3b;color:#d1fae5}
+    [data-theme="dark"] .sidebar-footer{border-top-color:#1e293b}
+    [data-theme="dark"] .sidebar-footer a,
+    [data-theme="dark"] .sidebar-footer button{color:#f5f9ff}
+    [data-theme="dark"] .sidebar-footer a:hover,
+    [data-theme="dark"] .sidebar-footer button:hover{background:#3f1d1d;color:#fca5a5}
+
+    [data-theme="dark"] .content{background:#020617}
+    [data-theme="dark"] .stat-card,
+    [data-theme="dark"] .section-card{background:#0f172a;border-color:#1e293b;box-shadow:none}
+    [data-theme="dark"] .stat-card:hover,
+    [data-theme="dark"] .section-card:hover{box-shadow:0 12px 22px -16px rgba(15,23,42,.7)}
+    [data-theme="dark"] .stat-card-value,
+    [data-theme="dark"] .section-title,
+    [data-theme="dark"] .item-name,
+    [data-theme="dark"] .item-price{color:#ffffff}
+    [data-theme="dark"] .stat-card-label,
+    [data-theme="dark"] .item-meta{color:#f5f9ff}
+    [data-theme="dark"] .section-link{color:#6ee7b7}
+    [data-theme="dark"] .item-row-flight{background:#111827}
+    [data-theme="dark"] .item-row-flight:hover{background:#1e293b}
+    [data-theme="dark"] .item-row-pending{background:#422006;border-color:#78350f}
+    [data-theme="dark"] .item-row-pending:hover{background:#5a2d0c}
+    [data-theme="dark"] .badge-blue{background:rgba(59,130,246,.22);color:#93c5fd}
+    [data-theme="dark"] .badge-green{background:rgba(34,197,94,.22);color:#86efac}
+    [data-theme="dark"] .badge-gray{background:rgba(148,163,184,.2);color:#cbd5e1}
+
+    [data-theme="dark"] .content [style*="color:#1f2937"],
+    [data-theme="dark"] .content [style*="color:#111827"]{color:#ffffff !important}
+    [data-theme="dark"] .content [style*="color:#9ca3af"],
+    [data-theme="dark"] .content [style*="color:#6b7280"]{color:#f5f9ff !important}
+
     @media(min-width:769px){.topbar-user{display:flex}}
     @media(max-width:768px){
       .sidebar{display:none}
