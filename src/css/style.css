@@ -46,6 +46,15 @@ ul { list-style: none; }
 button { cursor: pointer; border: none; background: none; font: inherit; }
 input, select { font: inherit; }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(255,106,0,.85);
+  outline-offset: 3px;
+}
+
 body {
   font-family: var(--font-base);
   font-size: 16px;

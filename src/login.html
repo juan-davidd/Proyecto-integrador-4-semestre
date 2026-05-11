@@ -11,7 +11,8 @@
 </head>
 <body class="login-page">
 
-<div class="login-split">
+<main class="login-page" id="mainContent">
+  <div class="login-split">
 
   <!-- ═══ Panel izquierdo: branding ═══ -->
   <div class="login-panel-brand" aria-hidden="true">
@@ -78,9 +79,9 @@
       </a>
 
       <!-- Card del formulario de LOGIN -->
-      <div class="login-form-card" id="loginCard">
+      <section class="login-form-card" id="loginCard" aria-labelledby="loginTitle">
 
-        <h1 class="login-title">Bienvenido de vuelta</h1>
+        <h1 class="login-title" id="loginTitle">Bienvenido de vuelta</h1>
         <p class="login-sub">Ingresa tus credenciales para continuar</p>
 
         <form class="login-form" id="loginForm" novalidate>
@@ -89,9 +90,9 @@
             <label for="email">Correo electrónico</label>
             <div class="input-wrap">
               <span class="input-icon">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </span>
-              <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required />
+              <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required aria-describedby="loginError" />
             </div>
           </div>
 
@@ -99,20 +100,20 @@
             <label for="password">Contraseña</label>
             <div class="input-wrap">
               <span class="input-icon">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </span>
-              <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+              <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required aria-describedby="loginError" />
             </div>
           </div>
 
           <div class="login-options">
-            <label class="remember-label">
+            <label class="remember-label" for="rememberMe">
               <input type="checkbox" id="rememberMe" name="rememberMe"> Recordar sesión
             </label>
             <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
           </div>
 
-          <div class="login-error" id="loginError" role="alert"></div>
+          <div class="login-error" id="loginError" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
           <button type="submit" class="btn btn-primary login-submit">Iniciar sesión</button>
 
@@ -122,12 +123,12 @@
           ¿No tienes cuenta? <a href="#registro">Regístrate gratis</a>
         </div>
 
-      </div><!-- /.login-form-card -->
+      </section><!-- /.login-form-card -->
 
       <!-- Card del formulario de REGISTRO -->
-      <div class="login-form-card" id="registerCard" style="display: none;">
+      <section class="login-form-card" id="registerCard" aria-labelledby="registerTitle" style="display: none;">
 
-        <h1 class="login-title">Crear cuenta</h1>
+        <h1 class="login-title" id="registerTitle">Crear cuenta</h1>
         <p class="login-sub">Únete a Terra Sky y reserva tus vuelos</p>
 
         <form class="login-form" id="registerForm" novalidate>
@@ -148,7 +149,7 @@
               <span class="input-icon">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </span>
-              <input type="text" id="regEmail" name="email" placeholder="tu@correo.com" required />
+              <input type="text" id="regEmail" name="email" placeholder="tu@correo.com" required aria-describedby="registerError" />
             </div>
           </div>
 
@@ -158,7 +159,7 @@
               <span class="input-icon">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </span>
-              <input type="password" id="regPassword" name="password" placeholder="••••••••" required />
+              <input type="password" id="regPassword" name="password" placeholder="••••••••" required aria-describedby="registerError" />
             </div>
           </div>
 
@@ -168,15 +169,15 @@
               <span class="input-icon">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </span>
-              <input type="password" id="regPassword2" name="password2" placeholder="••••••••" required />
+              <input type="password" id="regPassword2" name="password2" placeholder="••••••••" required aria-describedby="registerError" />
             </div>
           </div>
 
-          <label class="remember-label" style="margin-bottom: 1.25rem;">
+          <label class="remember-label" for="terms" style="margin-bottom: 1.25rem;">
             <input type="checkbox" id="terms" name="terms" required /> Acepto los términos y condiciones
           </label>
 
-          <div class="login-error" id="registerError" role="alert"></div>
+          <div class="login-error" id="registerError" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
           <button type="submit" class="btn btn-primary login-submit">Crear cuenta</button>
 
@@ -186,12 +187,13 @@
           ¿Ya tienes cuenta? <a href="#login">Inicia sesión</a>
         </div>
 
-      </div><!-- /.login-form-card -->
+      </section><!-- /.login-form-card -->
 
     </div><!-- /.login-form-wrap -->
   </div><!-- /.login-panel-form -->
 
-</div><!-- /.login-split -->
+  </div><!-- /.login-split -->
+</main>
 
 <script>
   const STORAGE_KEY = 'ts_user';
